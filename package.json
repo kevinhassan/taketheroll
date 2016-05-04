@@ -1,0 +1,27 @@
+{
+  "name": "taketheroll",
+  "version": "0.1.0",
+  "description": "Take the roll to count absence and late student in the Polytech IG class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinhassanIG/projetWeb.git"
+  },
+  "keywords": [
+    "late",
+    "absence",
+    "polytech",
+    "student",
+    "teacher",
+    "secretariat"
+  ],
+  "author": "kevinhassanIG : kevin.hassan@etu.umontpellier.fr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevinhassanIG/projetWeb/issues"
+  },
+  "homepage": "https://github.com/kevinhassanIG/projetWeb#readme"
+}
