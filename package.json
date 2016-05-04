@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/kevinhassanIG/projetWeb/issues"
   },
-  "homepage": "https://github.com/kevinhassanIG/projetWeb#readme"
+  "homepage": "https://github.com/kevinhassanIG/projetWeb#readme",
+  "engines": {
+    "node": "4.2.6"
+  }
 }
