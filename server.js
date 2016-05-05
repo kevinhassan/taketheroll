@@ -1,60 +1,42 @@
 require('dotenv').config();// Modifier les variables d'environnement
-var express = require("express");
-var path = require('path');
-var app = express();
-var pg = require('pg');//postgres module
-var bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
+
 var favicon = require('express-favicon');
 var ent = require('ent'); // Permet de bloquer les caractères HTML (sécurité)
-var logger = require('morgan'); //Log module
+var pg = require('pg');//postgres module
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+
+var app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-/*Connect to DB postgres*/
-var db = JSON.parse(process.env.DB_URL);//on parse l'url
-db = 'postgres://'+db.DB_USER+':'+db.DB_PASS+'@'+db.DB_HOST+'/'+db.DB_NAME;
-var client = new pg.Client(db);
-client.connect(function(err) {
-  if(err) {
-    return console.error('could not connect to postgres', err);
-  }
-  else{
-    client.query('SELECT NOW() AS "theTime"', function(err, result) {
-      if(err) {
-        return console.error('error running query', err);
-      }
-      console.log(result.rows[0].theTime);
-      client.end();
-    });
+app.all('/*', function(req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // Set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
   }
 });
-app.use(favicon(__dirname + '/public/favicon.ico')) // Active la favicon indiquée
-app.get('/', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send('Vous êtes à l\'accueil');
+// This middleware allow to authenticate and authorize request
+app.all('/api/v1/*', [require('./middlewares/validateRequest')]);
+// The list of routes for the application
+app.use('/', require('./routes'));
+// If no route is matched by now, it must be a 404
+app.use(function(req, res, next) {
+var err = new Error('Not Found');
+err.status = 404;
+next(err);
 });
-app.get('/auth', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send('Veuillez vous authentifier');
-});
-app.get('/student/:id', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send('Bienvenu étudiant n°'+req.params.id);
-});
-app.get('/teacher/:id', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send('Bienvenu professeur n°'+req.params.id);
-});
-app.get('/secretariat/:id', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send('Bienvenu secretariat n°'+req.params.id);
-});
-app.use(function(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(404).send('Erreur 404, Page introuvable !');
-});
-
-app.listen(8080,function(){
-  console.log("Le serveur est en cours d'execution");
+// Start the server
+app.set('port', process.env.PORT || 8080);
+var server = app.listen(app.get('port'), function() {
+console.log('Express server listening on port ' + server.address().port);
 });
