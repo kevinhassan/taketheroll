@@ -26,5 +26,15 @@
   "homepage": "https://github.com/kevinhassanIG/projetWeb#readme",
   "engines": {
     "node": "4.2.6"
+  },
+  "dependencies": {
+    "dotenv": "2.0.0",
+    "body-parser":"1.15.0",
+    "cookie-parser":"1.4.1",
+    "cookie-session": "2.0.0",
+    "ent":"2.2.0",
+    "express":"4.13.4",
+    "express-favicon":"1.0.1",
+    "pg":"4.5.5"
   }
 }
