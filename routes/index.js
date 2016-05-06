@@ -2,10 +2,11 @@
 var express = require('express');
 var router = express.Router();
 var auth = require('./auth');
-var student = require('./student');
-var admin = require('./admin');
-var absence = require('./absence');
-var late = require('./late');
+var student = require('../models/student');
+var admin = require('../models/admin');
+var teacher = require('../models/teacher');
+var absence = require('../models/absence');
+var late = require('../models/late');
 
 //Tout le monde peut accèder à cette adresse
 router.get("/",function(req,res){
@@ -31,8 +32,8 @@ router.put('/student/late/:id', late.update);//Justifier retard
 
 //Seul les professeurs peuvent y accéder
 router.get('/teacher/students',student.getAll);
-router.post('teacher/students/roll',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
-router.put('teacher/students/roll/:id', student.switchToLate);//Passer d'une absence a un retard
+router.post('teacher/course/:id/students',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
+router.put('teacher/course/:id/students', teacher.switchToLate);//Passer d'une absence a un retard
 //Seul le secrétariat peut y accéder
 /**
 * Gérer les étudiants
@@ -43,7 +44,7 @@ router.post('/admin/student/', student.create);
 router.put('/admin/student/:id', student.update);
 router.delete('/admin/student/:id', student.delete);
 //Consuler les alertes récentes
-router.get('/admin/alert',admin.alert);
+router.get('/admin/alert',admin.showAlert);
 //Gérer les absences
 router.get('/admin/students/absences',absence.getAll);
 router.get('/admin/students/absences/:id',absence.justify);
