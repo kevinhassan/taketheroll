@@ -22,37 +22,37 @@ router.get("/login",function(req,res){
 router.post("/login",auth.login);
 
 //Seul les étudiants peuvent y accéder
-router.get('/student/absence', absence.getAll);
-router.get('/student/absence/:id', absence.getOne);
-router.post('/student/absence/:id', absence.justify);//Justifier absence
-router.post('/student/absence', absence.notify)//avertir d'une absence
-router.get('/student/late', late.getAll);
-router.get('/student/late/:id', late.getOne);
-router.put('/student/late/:id', late.update);//Justifier retard
+router.get('/api/student/absence', absence.getAll);
+router.get('/api/student/absence/:id', absence.getOne);
+router.post('/api/student/absence/:id', absence.justify);//Justifier absence
+router.post('/api/student/absence', absence.notify)//avertir d'une absence
+router.get('/api/student/late', late.getAll);
+router.get('/api/student/late/:id', late.getOne);
+router.put('/api/student/late/:id', late.update);//Justifier retard
 
 //Seul les professeurs peuvent y accéder
-router.get('/teacher/students',student.getAll);
-router.post('teacher/course/:id/students',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
-router.put('teacher/course/:id/students', teacher.switchToLate);//Passer d'une absence a un retard
+router.get('/api/teacher/students',student.getAll);
+router.post('/api/teacher/course/:id/students',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
+router.put('/api/teacher/course/:id/students', teacher.switchToLate);//Passer d'une absence a un retard
 //Seul le secrétariat peut y accéder
 /**
 * Gérer les étudiants
 */
-router.get('/admin/students', student.getAll);
-router.get('/admin/student/:id', student.getOne);
-router.post('/admin/student/', student.create);
-router.put('/admin/student/:id', student.update);
-router.delete('/admin/student/:id', student.delete);
+router.get('/api/admin/students', student.getAll);
+router.get('/api/admin/student/:id', student.getOne);
+router.post('/api/admin/student/', student.create);
+router.put('/api/admin/student/:id', student.update);
+router.delete('/api/admin/student/:id', student.delete);
 //Consuler les alertes récentes
-router.get('/admin/alert',admin.showAlert);
+router.get('/api/admin/alert',admin.showAlert);
 //Gérer les absences
-router.get('/admin/students/absences',absence.getAll);
-router.get('/admin/students/absences/:id',absence.justify);
-router.get('/admin/students/absences',absence.delete);
-router.get('/admin/students/absences',absence.add);//Ajouter une absence justifier par l'éléve
+router.get('/api/admin/students/absences',absence.getAll);
+router.get('/api/admin/students/absences/:id',absence.justify);
+router.get('/api/admin/students/absences',absence.delete);
+router.get('/api/admin/students/absences',absence.add);//Ajouter une absence justifier par l'éléve
 //Gérer les retards
-router.get('/admin/students/lates',late.getAll);
-router.get('/admin/students/lates/:id',late.justify);
-router.get('/admin/students/lates',absence.delete);
+router.get('/api/admin/students/lates',late.getAll);
+router.get('/api/admin/students/lates/:id',late.justify);
+router.get('/api/admin/students/lates',late.delete);
 
 module.exports = router;
