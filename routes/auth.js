@@ -44,8 +44,19 @@ var auth = {
       username: 'kevin.hassan@gmail.com'
     };
     return dbUserObj;
-  }
+  },
+  validateUser: function(username) {
+    // spoofing the DB response for simplicity
+    var dbUserObj = { // spoofing a userobject from the DB.
+      name: 'arvind',
+      role: 'admin',
+      username: 'arvind@myapp.com'
+    };
+
+    return dbUserObj;
+  },
 }
+
 //Methode pour le token
 function genToken(user) {
   var expires = expiresIn(7); // 7 jours
