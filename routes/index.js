@@ -1,8 +1,13 @@
 /*./routes/index.js*/
 var express = require('express');
 var router = express.Router();
-var auth = require('./auth')
-//Tout le monde peut accèder à ces adresses
+var auth = require('./auth');
+var student = require('./student');
+var admin = require('./admin');
+var absence = require('./absence');
+var late = require('./late');
+
+//Tout le monde peut accèder à cette adresse
 router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
@@ -12,11 +17,34 @@ router.get("/login",function(req,res){
     res.status(200);
     res.json({"message" : "Veuillez vous connecter"});
 });
-router.post("/login",auth.login);//On vérifie les données saisies
+//On vérifie les données saisies et on redirige en /student/ ou /teacher/ ou /admin/
+router.post("/login",auth.login);
 
 //Seul les étudiants peuvent y accéder
+router.get('/student/absence', absence.getAll);
+router.get('/student/absence/:id', absence.getOne);
+router.post('/student/absence/:id', absence.justify);//Justifier absence
+router.post('/student/absence', absence.notify)//avertir d'une absence
+router.get('/student/late', late.getAll);
+router.get('/student/late/:id', late.getOne);
+router.put('/student/late/:id', late.update);//Justifier retard
 
 //Seul les professeurs peuvent y accéder
 
+
+/*
+ * Routes that can be accessed only by authenticated & authorized users
+ */
+
+
 //Seul le secrétariat peut y accéder
+/**
+* Gérer les étudiants
+*/
+router.get('/admin/student', student.getAll);
+router.get('/admin/student/:id', student.getOne);
+router.post('/admin/student/', student.create);
+router.put('/admin/student/:id', student.update);
+router.delete('/admin/student/:id', student.delete);
+
 module.exports = router;

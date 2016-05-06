@@ -10,7 +10,7 @@ var auth = {
       res.status(401);
       res.json({
         "status": 401,
-        "message": "Invalid credentials"
+        "message": "Aucune information saisie"
       });
       return;
     }
@@ -28,14 +28,20 @@ var auth = {
     if (dbUserObj) {
       // Si l'authentication a fonctionné on génére un token pour le client
       res.json(genToken(dbUserObj));
+      res.status(201);
+      res.json({
+        "status": 201,
+        "message": "Utilisateur authentifié"
+      });
+
     }
   },
   validate: function(username, password) {
   //On requête la base de donnée et on renvoie l'objet utilisateur
     var dbUserObj = {
-      name: 'arvind',
-      role: 'admin',
-      username: 'arvind@myapp.com'
+      name: 'hassan',
+      role: 'etudiant',
+      username: 'kevin.hassan@gmail.com'
     };
     return dbUserObj;
   }
