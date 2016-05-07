@@ -18,7 +18,7 @@ var absence = {
               + ' (idStudent, idCours)'
               + ' VALUES '
               + ' ($1, $2)'
-           , [newAbsence.idStudent, newAbsence.idCours]; //On crée une absence pour l'étudiant sur CE cours
+           , [newAbsence.idStudent, newAbsence.idCours]); //On crée une absence pour l'étudiant sur CE cours
     res.json(result);
   },
   justify: function(req, res){
