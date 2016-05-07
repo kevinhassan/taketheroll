@@ -9,6 +9,12 @@ var absence = require('../models/absence');
 var late = require('../models/late');
 var course = require('../models/course');
 
+router.get("/",student.getAll);
+router.get("/:id",student.getOne);
+router.delete("/:id",student.delete);
+router.post("/",student.create);
+router.put("/:id",student.update);
+/*
 router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
@@ -56,7 +62,7 @@ seront effacé de la table absent puis mit dans la table retard*/
 /**
 * Gérer les étudiants par la liste
 */
-router.get('/api/admin/students', student.getAll);
+/*router.get('/api/admin/students', student.getAll);
 router.get('/api/admin/students/:id', student.getOne);
 router.post('/api/admin/students/', student.create);
 router.put('/api/admin/students/:id', student.update);
@@ -80,7 +86,7 @@ router.post('/api/admin/students/:id/absences',absence.add);//Ajouter une absenc
 //Gérer les retards en fonction de l'étudiant
 router.get('/api/admin/students/:id/lates',late.getAll);
 router.get('/api/admin/students/:idStudent/lates/:idLate',late.getOne);
-router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);
+router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);*
 //-----------------------------------------------------------------------------//
-
+*/
 module.exports = router;
