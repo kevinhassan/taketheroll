@@ -7,8 +7,8 @@ var admin = require('../models/admin');
 var teacher = require('../models/teacher');
 var absence = require('../models/absence');
 var late = require('../models/late');
+var course = require('../models/course');
 
-//Tout le monde peut accèder à cette adresse
 router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
@@ -21,38 +21,66 @@ router.get("/login",function(req,res){
 //On vérifie les données saisies et on redirige en /student/ ou /teacher/ ou /admin/
 router.post("/login",auth.login);
 
-//Seul les étudiants peuvent y accéder
+//---------------------Seul les étudiants peuvent y accéder--------------------------------//
 router.get('/api/student/absence', absence.getAll);
 router.get('/api/student/absence/:id', absence.getOne);
-router.post('/api/student/absence/:id', absence.justify);//Justifier absence
-router.post('/api/student/absence', absence.notify)//avertir d'une absence
+//Justifier absence
+router.post('/api/student/absence/:id', function(req,res)
+{
+    res.status(200);
+    res.json({"message": "Justificatif transmis pour l'absence"});
+});
+//avertir d'une absence
+router.post('/api/student/absence', function(req,res){
+  res.status(200);
+  res.json({"message": "Justificatif transmis"});
+});
 router.get('/api/student/late', late.getAll);
 router.get('/api/student/late/:id', late.getOne);
-router.put('/api/student/late/:id', late.update);//Justifier retard
+//Justifier retard
+router.post('/api/student/late/:id', function(req,res){
+  res.status(200);
+  res.json({"message": "Justificatif transmis pour le retard"});
+});
+//-----------------------------------------------------------------------------//
 
-//Seul les professeurs peuvent y accéder
-router.get('/api/teacher/students',student.getAll);
+//-----------Seul les professeurs pourront y accèder---------------------------//
+router.get('/api/teacher/course',course.getOnce);
+router.get('/api/teacher/course/:id/students',student.getAll);//On récupère la liste pour faire l'appel
 router.post('/api/teacher/course/:id/students',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
-router.put('/api/teacher/course/:id/students', teacher.switchToLate);//Passer d'une absence a un retard
-//Seul le secrétariat peut y accéder
+/*Passer les absences en retard se fera avec un Trigger, ceux qui était déclaré absent et sont écrit en retard
+seront effacé de la table absent puis mit dans la table retard*/
+//-----------------------------------------------------------------------------//
+
+//-----------Seul le secrétariat peut y accéder--------------------------------//
 /**
-* Gérer les étudiants
+* Gérer les étudiants par la liste
 */
 router.get('/api/admin/students', student.getAll);
-router.get('/api/admin/student/:id', student.getOne);
-router.post('/api/admin/student/', student.create);
-router.put('/api/admin/student/:id', student.update);
-router.delete('/api/admin/student/:id', student.delete);
+router.get('/api/admin/students/:id', student.getOne);
+router.post('/api/admin/students/', student.create);
+router.put('/api/admin/students/:id', student.update);
+router.delete('/api/admin/students/:id', student.delete);
 //Consuler les alertes récentes
-router.get('/api/admin/alert',admin.showAlert);
-//Gérer les absences
-router.get('/api/admin/students/absences',absence.getAll);
-router.get('/api/admin/students/absences/:id',absence.justify);
-router.get('/api/admin/students/absences',absence.delete);
-router.get('/api/admin/students/absences',absence.add);//Ajouter une absence justifier par l'éléve
-//Gérer les retards
-router.get('/api/admin/students/lates',late.getAll);
-router.get('/api/admin/students/lates/:id',late.justify);
-router.get('/api/admin/students/lates',late.delete);
+router.get('/api/admin/alerts',admin.showAlert);//Liste toute les absences et retards
+//Gérer les absences en fonction du cours
+router.get('/api/admin/courses/:id/absences',absence.getAll);
+router.get('/api/admin/courses/:idCourse/absences/:idAbsence',absence.getOne);
+router.put('/api/admin/courses/:idCourse/absences/:idAbsence',absence.justify);//Si justification suffisante passe à justifié
+router.post('/api/admin/courses/:idCourses/absence',absence.add);//Ajouter une absence justifier avant le cours par l'éléve
+//Gérer les retards en fonction du cours
+router.get('/api/admin/courses/:id/late',late.getAll);
+router.get('/api/admin/courses/:idCourse/late/:idLate',late.getOne);
+router.put('/api/admin/courses/:idCourse/late/:idLate',late.justify);//Passe a justifié si étudiant a une justification
+//Gérer les absences en fonction de l'étudiant
+router.get('/api/admin/students/:id/absences',absence.getAll);
+router.get('/api/admin/students/:idStudent/absences/:idAbsence',absence.getOne);
+router.put('/api/admin/students/:idStudent/absences/:idAbsence',absence.justify);//Si justification suffisante l'absence est justifiée
+router.post('/api/admin/students/:id/absences',absence.add);//Ajouter une absence justifier avant le cours par l'éléve
+//Gérer les retards en fonction de l'étudiant
+router.get('/api/admin/students/:id/lates',late.getAll);
+router.get('/api/admin/students/:idStudent/lates/:idLate',late.getOne);
+router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);
+//-----------------------------------------------------------------------------//
 
 module.exports = router;
