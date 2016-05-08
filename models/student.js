@@ -1,5 +1,6 @@
 var db = require('../config/database');
 var table = 'student';
+var pk = 'id';//Primary key
 var model = require('./model');
 
 var student = {
@@ -10,7 +11,7 @@ var student = {
   },
   getOne: function(req, res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
-    var sql = model.selectWhere('*',table,id);
+    var sql = model.selectWhere('*',table,pk,id);
     var result=db.query(sql);
     res.send(result);
   },
@@ -27,7 +28,10 @@ var student = {
   },
   update: function(req, res){
     var id = req.params.id;
-    var result = db.query('UPDATE student'+ " SET id="+req.body.id+",name='"+req.body.name+"',nickname='"+req.body.nickname+"' WHERE id="+ id);//Requête de test
+    var updateData = {'id':4,'name':"kash",'nickname':"kake"};//A recupèrer dans le formulaire
+    var sql = model.update(table,updateData,pk,id);
+    console.log(sql);
+    var result = db.query(sql);//Requête de test
     res.send(result);
     /*db.query('UPDATE student'
               + 'SET nom=updateData.nom, prenom=updateData.prenom , sexe=updateData.sexe,'
@@ -38,7 +42,7 @@ var student = {
   },
   delete: function(req, res){
     var id = req.params.id;
-    var sql = model.deleteWhere(table,id);
+    var sql = model.deleteWhere(table,pk,id);
     var result = db.query(sql);
     res.send(result);
   }
