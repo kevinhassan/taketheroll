@@ -1,12 +1,17 @@
 var db = require('../config/database');
+var table = 'student';
+var model = require('./model');
+
 var student = {
   getAll: function(req, res){
-    var result = db.query('SELECT * FROM student');
+    var sql = model.selectAll('*',table);
+    var result = db.query(sql);
     res.send(result);
   },
   getOne: function(req, res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
-    var result=db.query('SELECT * FROM student WHERE id='+id);
+    var sql = model.selectWhere('*',table,id);
+    var result=db.query(sql);
     res.send(result);
   },
   create: function(req, res){
@@ -33,7 +38,8 @@ var student = {
   },
   delete: function(req, res){
     var id = req.params.id;
-    var result = db.query('DELETE FROM student WHERE id='+ id);
+    var sql = model.deleteWhere(table,id);
+    var result = db.query(sql);
     res.send(result);
   }
 };
