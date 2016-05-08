@@ -1,5 +1,5 @@
 /*./config/database.js*/
-module.exports = function query(sql)
+var query = function(sql, callback)
 {
   var pg = require('pg');
   var connectionString = JSON.parse(process.env.DB_URL);//on parse l'url
@@ -10,6 +10,7 @@ module.exports = function query(sql)
     if(err) {
       done();
       console.log(err);
+      // Callback the error instead
       return res.status(500).json({ success: false, data: err});
     }
     var query = client.query(sql);
@@ -20,7 +21,14 @@ module.exports = function query(sql)
     // After all data is returned, close connection and return results
     query.on('end', function() {
         done();
+        // Callback function call instead
         return results;
     });
   });
 };
+
+exports.query = query;
+
+// Then ( var db = require('path/to/this');   db.query(query, function(){ ... });
+
+
