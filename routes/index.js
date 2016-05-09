@@ -9,12 +9,22 @@ var absence = require('../models/absence');
 var late = require('../models/late');
 var course = require('../models/course');
 
+router.get("/",student.getAll);
+router.get("/:id",student.getOne);
+router.delete("/:id",student.delete);
+router.post("/",student.create);
+router.put("/:id",student.update);
+/*
 router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
 });
-// On choisira dans un dropdown qui ont est : etudiant, professeur, secretariat
 router.get("/login",function(req,res){
+  res.status(200);
+  res.json({"message" : "Etes vous étudiant professeur ou administrateur"});
+});
+// On choisira à l'accueil si on est : etudiant, professeur, secretariat
+router.get("/login/:role",function(req,res){
     res.status(200);
     res.json({"message" : "Veuillez vous connecter"});
 });
@@ -56,7 +66,7 @@ seront effacé de la table absent puis mit dans la table retard*/
 /**
 * Gérer les étudiants par la liste
 */
-router.get('/api/admin/students', student.getAll);
+/*router.get('/api/admin/students', student.getAll);
 router.get('/api/admin/students/:id', student.getOne);
 router.post('/api/admin/students/', student.create);
 router.put('/api/admin/students/:id', student.update);
@@ -67,7 +77,7 @@ router.get('/api/admin/alerts',admin.showAlert);//Liste toute les absences et re
 router.get('/api/admin/courses/:id/absences',absence.getAll);
 router.get('/api/admin/courses/:idCourse/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/courses/:idCourse/absences/:idAbsence',absence.justify);//Si justification suffisante passe à justifié
-router.post('/api/admin/courses/:idCourses/absence',absence.add);//Ajouter une absence justifier avant le cours par l'éléve
+router.post('/api/admin/courses/:idCourses/absence',absence.create);//Ajouter une absence justifier avant le cours par l'éléve
 //Gérer les retards en fonction du cours
 router.get('/api/admin/courses/:id/late',late.getAll);
 router.get('/api/admin/courses/:idCourse/late/:idLate',late.getOne);
@@ -80,7 +90,7 @@ router.post('/api/admin/students/:id/absences',absence.add);//Ajouter une absenc
 //Gérer les retards en fonction de l'étudiant
 router.get('/api/admin/students/:id/lates',late.getAll);
 router.get('/api/admin/students/:idStudent/lates/:idLate',late.getOne);
-router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);
+router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);*
 //-----------------------------------------------------------------------------//
-
+*/
 module.exports = router;

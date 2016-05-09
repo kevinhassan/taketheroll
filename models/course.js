@@ -1,4 +1,7 @@
 var db = require('../config/database');
+var table = 'course';
+var pk = 'id';//Primary key
+var model = require('./model');
 var moment = require('moment');//Gérer les heures de manière intelligente
 
 var course = {
