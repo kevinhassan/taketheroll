@@ -1,30 +1,38 @@
 var db = require('../config/database');
+var table = 'absence';
+var pk = 'id';//Primary key
+var model = require('./model');
+
 var absence = {
   getAll: function(req, res){
-    /*Je regarde dans l'objet utilisateur mon role
-    Si je suis étudiant -> je n'affiche que les absences de mon id
-    Sinon j'affiche tous*/
-      result = db.query('SELECT * FROM absence');
-      res.json(result);
+    var sql = model.selectAll('*',table);
+    var result = db.query(sql);
+    res.send(result);
   },
   getOne: function(req, res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
-    db.query('SELECT * FROM absence WHERE id='+id);
-    res.json(result);
+    var sql = model.selectWhere('*',table,pk,id);
+    var result=db.query(sql);
+    res.send(result);
   },
   create: function(req, res){
-    var newAbsence = req.body;
-    result = db.query('INSERT INTO absence'
-              + ' (idStudent, idCours)'
-              + ' VALUES '
-              + ' ($1, $2)'
-           , [newAbsence.idStudent, newAbsence.idCours]); //On crée une absence pour l'étudiant sur CE cours
-    res.json(result);
+    var newAbsence = {};//Requête de test
+    var sql = model.create(table,newStudent);
+    var result = db.query(sql);
+    res.send(result);
+  },
+  delete: function(req, res){
+    var id = req.params.id;
+    var sql = model.deleteWhere(table,pk,id);
+    var result = db.query(sql);
+    res.send(result);
   },
   justify: function(req, res){
     var id = req.params.id;
-  },
-  add: function(req, res){
-  },
+    var updateData = {};//A recupèrer dans le formulaire
+    var sql = model.update(table,updateData,pk,id);
+    var result = db.query(sql);//Requête de test
+    res.send(result);
+  }
 };
 module.exports = absence;
