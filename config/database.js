@@ -2,8 +2,11 @@
 var query = function(sql, callback)
 {
   var pg = require('pg');
-  var connectionString = JSON.parse(process.env.DB_URL);//on parse l'url
-  connectionString = 'postgres://'+connectionString.DB_USER+':'+connectionString.DB_PASS+'@'+connectionString.DB_HOST+'/'+connectionString.DB_NAME;
+  var connectionString = "postgres://"
+                  +process.env.DB_USER+":"
+                  +process.env.DB_PASS+"@"
+                  +process.env.DB_HOST+'/'
+                  +process.env.DB_NAME;
   var results = [];
   pg.connect(connectionString, function(err, client, done) {
     // Handle connection errors
@@ -22,14 +25,12 @@ var query = function(sql, callback)
     query.on('end', function() {
         done();
         // Callback function call instead
+        console.log(results);
         return results;
     });
   });
-});
 };
 
 exports.query = query;
 
 // Then ( var db = require('path/to/this');   db.query(query, function(){ ... });
-
-

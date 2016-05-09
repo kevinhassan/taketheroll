@@ -16,14 +16,14 @@ var student = {
     res.send(result);
   },
   create: function(req, res){
-    var newStudent = {'id':4,'name':"kash",'nickname':"kake"};//Requête de test
+    var newStudent = {'id':1,'name':"kash",'nickname':"kake"};//Requête de test
     var sql = model.create(table,newStudent);
     var result = db.query(sql);
     res.send(result);
   },
   update: function(req, res){
     var id = req.params.id;
-    var updateData = {'id':4,'name':"kash",'nickname':"kake"};//A recupèrer dans le formulaire
+    var updateData = {'id':2,'name':"kash",'nickname':"kade"};//A recupèrer dans le formulaire
     var sql = model.update(table,updateData,pk,id);
     var result = db.query(sql);//Requête de test
     res.send(result);
