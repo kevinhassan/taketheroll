@@ -19,8 +19,12 @@ router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
 });
-// On choisira dans un dropdown qui ont est : etudiant, professeur, secretariat
 router.get("/login",function(req,res){
+  res.status(200);
+  res.json({"message" : "Etes vous étudiant professeur ou administrateur"});
+});
+// On choisira à l'accueil si on est : etudiant, professeur, secretariat
+router.get("/login/:role",function(req,res){
     res.status(200);
     res.json({"message" : "Veuillez vous connecter"});
 });
@@ -73,7 +77,7 @@ router.get('/api/admin/alerts',admin.showAlert);//Liste toute les absences et re
 router.get('/api/admin/courses/:id/absences',absence.getAll);
 router.get('/api/admin/courses/:idCourse/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/courses/:idCourse/absences/:idAbsence',absence.justify);//Si justification suffisante passe à justifié
-router.post('/api/admin/courses/:idCourses/absence',absence.add);//Ajouter une absence justifier avant le cours par l'éléve
+router.post('/api/admin/courses/:idCourses/absence',absence.create);//Ajouter une absence justifier avant le cours par l'éléve
 //Gérer les retards en fonction du cours
 router.get('/api/admin/courses/:id/late',late.getAll);
 router.get('/api/admin/courses/:idCourse/late/:idLate',late.getOne);
