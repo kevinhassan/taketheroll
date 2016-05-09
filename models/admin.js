@@ -1,5 +1,5 @@
 var db = require('../config/database');
-var table = 'admin';
+var table = 'administrator';
 var pk = 'id';//Primary key
 var model = require('./model');
 
