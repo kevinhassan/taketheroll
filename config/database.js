@@ -1,42 +1,35 @@
 /*./config/database.js*/
-var pg = require('pg');
-var conString = "postgres://"
-                +process.env.DB_USER+":"
-                +process.env.DB_PASS+"@"
-                +process.env.DB_HOST+'/'
-                +process.env.DB_NAME;
-
-// get a pg client from the connection pool
-exports.query = function(sql){
-pg.connect(conString, function(err, client, done) {
-  var connectionError = function(err) {
-    // no error occurred, continue with the request
-    if(!err) return false;
-
-    if(client){
-      done(client);
+var query = function(sql, callback)
+{
+  var pg = require('pg');
+  var connectionString = JSON.parse(process.env.DB_URL);//on parse l'url
+  connectionString = 'postgres://'+connectionString.DB_USER+':'+connectionString.DB_PASS+'@'+connectionString.DB_HOST+'/'+connectionString.DB_NAME;
+  var results = [];
+  pg.connect(connectionString, function(err, client, done) {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      // Callback the error instead
+      return res.status(500).json({ success: false, data: err});
     }
-    console.log('Problème de connexion à la BD');
-    return true;
-  };
-  var requestError = function(err) {
-    if(!err) return false;
-    if(client){
-      done(client);
-    }
-    console.log('Problème avec la requête');
-    return true;
-  };
-  
-  // handle an error from the connection
-  if(connectionError(err)) return;
-    client.query(sql, function(err, result) {
-    // handle an error from the query
-    if(requestError(err)) return;
-    done();
-    var result = JSON.stringify(result.rows);
-    console.log(result);
-    return result;//Ajouter le code de retour et les informations
+    var query = client.query(sql);
+    // Stream results back one row at a time
+    query.on('row', function(row) {
+        results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', function() {
+        done();
+        // Callback function call instead
+        return results;
+    });
   });
 });
 };
+
+exports.query = query;
+
+// Then ( var db = require('path/to/this');   db.query(query, function(){ ... });
+
+
