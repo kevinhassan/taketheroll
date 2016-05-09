@@ -12,9 +12,9 @@ var query = function(sql, callback)
     // Handle connection errors
     if(err) {
       done();
-      console.log(err);
       // Callback the error instead
-      return res.status(500).json({ success: false, data: err});
+      callback(null,{'status':500,'success': false,'data': err});
+      return;
     }
     var query = client.query(sql);
     // Stream results back one row at a time
@@ -25,8 +25,8 @@ var query = function(sql, callback)
     query.on('end', function() {
         done();
         // Callback function call instead
-        console.log(results);
-        return results;
+        callback(results,null);
+        return;
     });
   });
 };

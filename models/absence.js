@@ -1,6 +1,6 @@
 var db = require('../config/database');
 var table = 'absence';
-var pk = 'id';//Primary key
+var pk = 'id_Absence';//Primary key
 var model = require('./model');
 
 var absence = {

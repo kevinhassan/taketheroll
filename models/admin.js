@@ -1,6 +1,6 @@
 var db = require('../config/database');
 var table = 'administrator';
-var pk = 'id';//Primary key
+var pk = 'id_Administrator';//Primary key
 var model = require('./model');
 
 var admin = {
@@ -11,7 +11,7 @@ var admin = {
     res.send(result);
   },
   showAlert: function(req, res){
-    
+
   }
 };
 
