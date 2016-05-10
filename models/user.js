@@ -5,8 +5,9 @@ var model = require('./model');
 
 var user = {
   getUser: function(username, password){
-    var sql = model.selectWhere('id_User, role, password',table,'username',username);
-    var result = db.query(sql);
+    var sql = model.selectWhere(pk+"', 'role', 'password",table,'username',username);
+    console.log(sql);
+    var result = db.query(sql,function(res,err){});
     if(typeof(result) != 'undefined'& result)
     {
       var json = JSON.parse(result);

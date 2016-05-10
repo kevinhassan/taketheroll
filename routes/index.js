@@ -18,7 +18,7 @@ router.get("/",function(req,res){
   res.json({"message" : "Bienvenu à l'accueil"});
 });
 
-router.get("/login/:role",function(req,res){
+router.get("/login",function(req,res){
     res.status(200);
     res.json({"message" : "Veuillez vous connecter"});
 });
