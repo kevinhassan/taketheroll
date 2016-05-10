@@ -2,7 +2,7 @@ var db = require('../config/database');
 var table = 'users';
 var pk = 'id_User';//Primary key
 var model = require('./model');
-var crypt = require('../config/crypt')
+var crypt = require('../auth/config/crypt')
 
 var user = {
   getUser: function(user,fn){

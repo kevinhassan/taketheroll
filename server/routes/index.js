@@ -1,7 +1,7 @@
 /*./routes/index.js*/
 var express = require('express');
 var router = express.Router();
-var auth = require('./auth');
+var auth = require('../auth/auth');
 
 var student = require('../models/student');
 var admin = require('../models/admin');

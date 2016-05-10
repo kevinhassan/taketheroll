@@ -29,5 +29,3 @@ var query = function(sql, callback)
 };
 
 exports.query = query;
-
-// Then ( var db = require('path/to/this');   db.query(query, function(){ ... });
