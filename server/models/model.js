@@ -23,7 +23,6 @@ exports.create = function(table,data){
   keys +=") VALUES (";
   values +=")";
   sql += keys + values;
-  console.log(sql);
   return sql;
 }
 exports.update= function(table,updateData,pk,id){
@@ -33,6 +32,5 @@ exports.update= function(table,updateData,pk,id){
   }
   sql =  sql.substring(0, sql.length - 1);//On enlève le ',' en trop
   sql += "WHERE "+'"'+pk+'"'+"="+id;
-  console.log(sql);
   return sql;
 }

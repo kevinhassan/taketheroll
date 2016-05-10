@@ -2,6 +2,7 @@ var db = require('../config/database');
 var table = 'users';
 var pk = 'id_User';//Primary key
 var model = require('./model');
+var crypt = require('../config/crypt')
 
 var user = {
   getUser: function(user,fn){
@@ -9,10 +10,13 @@ var user = {
     db.query(sql,function(res,err){
       if(res[0] !== undefined)
       {
-        if(res[0].password == user.password)
+        if(crypt.decrypt(res[0].password) == user.password)
         {
           var result = {'id_User':res[0].id_User,'role':res[0].role};
           return fn(result,null);
+        }
+        else{//Le mot de passe ne correspond pas
+
         }
       }
       else{
@@ -22,13 +26,14 @@ var user = {
     });
   },
   createUser: function(user,fn){
+    user.password = crypt.encrypt(user.password);
+    console.log(user);
     var sql = model.create(table,user);
     db.query(sql,function(res,err){
       if (err){
         console.error(err);
         return fn(null,err);
       }
-      console.log(res);
       return fn(res,null);
     });
   }
