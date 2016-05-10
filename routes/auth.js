@@ -1,4 +1,6 @@
 var jwt = require('jwt-simple');
+var user = require('../models/user')
+
 var auth = {
 
   login: function(req, res) {
@@ -38,11 +40,7 @@ var auth = {
   },
   validate: function(username, password) {
   //On requête la base de donnée et on renvoie l'objet utilisateur
-    var dbUserObj = {
-      name: 'hassan',
-      role: 'etudiant',
-      username: 'kevin.hassan@gmail.com'
-    };
+    var dbUserObj = user.getUser(username,password);
     return dbUserObj;
   },
   validateUser: function(username) {

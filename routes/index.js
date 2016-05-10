@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var auth = require('./auth');
+
 var student = require('../models/student');
 var admin = require('../models/admin');
 var teacher = require('../models/teacher');
@@ -11,16 +12,12 @@ var course = require('../models/course');
 var user = require('../models/user');
 
 
-/*
+
 router.get("/",function(req,res){
   res.status(200);
   res.json({"message" : "Bienvenu à l'accueil"});
 });
-router.get("/login",function(req,res){
-  res.status(200);
-  res.json({"message" : "Etes vous étudiant professeur ou administrateur"});
-});
-// On choisira à l'accueil si on est : etudiant, professeur, secretariat
+
 router.get("/login/:role",function(req,res){
     res.status(200);
     res.json({"message" : "Veuillez vous connecter"});
@@ -63,7 +60,7 @@ seront effacé de la table absent puis mit dans la table retard*/
 /**
 * Gérer les étudiants par la liste
 */
-/*router.get('/api/admin/students', student.getAll);
+router.get('/api/admin/students', student.getAll);
 router.get('/api/admin/students/:id', student.getOne);
 router.post('/api/admin/students/', student.create);
 router.put('/api/admin/students/:id', student.update);
@@ -83,11 +80,11 @@ router.put('/api/admin/courses/:idCourse/late/:idLate',late.justify);//Passe a j
 router.get('/api/admin/students/:id/absences',absence.getAll);
 router.get('/api/admin/students/:idStudent/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/students/:idStudent/absences/:idAbsence',absence.justify);//Si justification suffisante l'absence est justifiée
-router.post('/api/admin/students/:id/absences',absence.add);//Ajouter une absence justifier avant le cours par l'éléve
+router.post('/api/admin/students/:id/absences',absence.create);//Ajouter une absence justifier avant le cours par l'éléve
 //Gérer les retards en fonction de l'étudiant
 router.get('/api/admin/students/:id/lates',late.getAll);
 router.get('/api/admin/students/:idStudent/lates/:idLate',late.getOne);
-router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);*
+router.put('/api/admin/students/:idStudent/absences/:idLate',late.justify);
 //-----------------------------------------------------------------------------//
-*/
+
 module.exports = router;
