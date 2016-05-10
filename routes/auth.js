@@ -2,12 +2,9 @@ var jwt = require('jwt-simple');
 var user = require('../models/user')
 
 var auth = {
-
   login: function(req, res) {
-
     var username = req.body.username || '';
     var password = req.body.password || '';
-
     if (username == '' || password == '') {
       res.status(401);
       res.json({
@@ -17,13 +14,13 @@ var auth = {
       return;
     }
     //Sinon on teste l'username et le password
-    var dbUserObj = auth.validate(username, password);
+    var dbUserObj = auth.validate(req,res);
 
     if (!dbUserObj) { // Si l'authentication a échoué on renvoie un 401
       res.status(401);
       res.json({
         "status": 401,
-        "message": "Invalid credentials"
+        "message": "Utilisateur non authentifié"
       });
       return;
     }
@@ -35,24 +32,23 @@ var auth = {
         "status": 201,
         "message": "Utilisateur authentifié"
       });
-
     }
   },
-  validate: function(username, password) {
+  validate: function(req,res) {
   //On requête la base de donnée et on renvoie l'objet utilisateur
-    var dbUserObj = user.getUser(username,password);
+    var dbUserObj = user.getUser(req.body,function(result){
+    });
     return dbUserObj;
   },
-  validateUser: function(username) {
-    // spoofing the DB response for simplicity
-    var dbUserObj = { // spoofing a userobject from the DB.
-      name: 'arvind',
-      role: 'admin',
-      username: 'arvind@myapp.com'
-    };
-
-    return dbUserObj;
-  },
+  register: function(req, res){
+    user.createUser(req.body,function(result){
+      res.status(201).send({
+        'status':'201',
+        'message':'User created'
+      });
+      return;
+    });
+  }
 }
 
 //Methode pour le token

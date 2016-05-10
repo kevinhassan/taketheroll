@@ -3,7 +3,7 @@ exports.selectAll = function(selector,table){
   return sql;
 }
 exports.selectWhere = function(selector,table,pk,id){
-  var sql = "SELECT "+"'"+selector+"'"+" FROM "+table+" WHERE "+"'"+pk+"'"+"="+"'"+id+"'";
+  var sql = 'SELECT '+'"'+selector+'"'+' FROM '+table+' WHERE '+'"'+pk+'"'+'='+"'"+id+"'";
   return sql;
 }
 exports.deleteWhere = function(table,pk,id){

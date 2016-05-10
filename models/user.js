@@ -1,24 +1,37 @@
 var db = require('../config/database');
-var table = 'user';
+var table = 'users';
 var pk = 'id_User';//Primary key
 var model = require('./model');
 
 var user = {
-  getUser: function(username, password){
-    var sql = model.selectWhere(pk+"', 'role', 'password",table,'username',username);
-    console.log(sql);
-    var result = db.query(sql,function(res,err){});
-    if(typeof(result) != 'undefined'& result)
-    {
-      var json = JSON.parse(result);
-      if(json.password == password)
+  getUser: function(user,fn){
+    var sql = model.selectWhere(pk+'", "role", "password',table,"username",user.username);
+    db.query(sql,function(res,err){
+      if(res[0] !== undefined)
       {
-        return {'id_User':json.id_User,'role':json.role}
+        if(res[0].password == user.password)
+        {
+          var result = {'id_User':res[0].id_User,'role':res[0].role};
+          console.log(result);
+          return fn(result,null);
+        }
       }
-    }
-    else {
-      return false;
-    }
+      else{
+        console.error(err);
+        return fn(null,err);//Utilisateur absent
+      }
+    });
+  },
+  createUser: function(user,fn){
+    var sql = model.create(table,user);
+    db.query(sql,function(res,err){
+      if (err){
+        console.error(err);
+        return fn(null,err);
+      }
+      console.log(res);
+      return fn(res,null);
+    });
   }
 };
 module.exports = user;
