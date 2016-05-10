@@ -14,33 +14,32 @@ var auth = {
       return;
     }
     //Sinon on teste l'username et le password
-    var dbUserObj = auth.validate(req,res);
-
-    if (!dbUserObj) { // Si l'authentication a échoué on renvoie un 401
-      res.status(401);
-      res.json({
-        "status": 401,
-        "message": "Utilisateur non authentifié"
-      });
-      return;
-    }
-    if (dbUserObj) {
-      // Si l'authentication a fonctionné on génére un token pour le client
-      res.json(genToken(dbUserObj));
-      res.status(201);
-      res.json({
-        "status": 201,
-        "message": "Utilisateur authentifié"
-      });
-    }
-  },
-  validate: function(req,res) {
-  //On requête la base de donnée et on renvoie l'objet utilisateur
-    var dbUserObj = user.getUser(req.body,function(result){
-      console.log(result);
-      return;
+    auth.validate(req.body,function(result){
+      dbUserObj = result;
+      if (!dbUserObj) { // Si l'authentication a échoué on renvoie un 401
+        res.status(401);
+        res.json({
+          "status": 401,
+          "message": "Utilisateur non authentifié"
+        });
+        return;
+      }
+      if (dbUserObj) {
+        // Si l'authentication a fonctionné on génére un token pour le client
+        res.status(201);
+        res.json({
+          "status": 201,
+          "message": "Utilisateur authentifié",
+          "token": genToken(dbUserObj)
+        });
+      }
     });
-    return dbUserObj;
+  },
+  validate: function(User,fn) {
+  //On requête la base de donnée et on renvoie l'objet utilisateur
+    var dbUserObj = user.getUser(User,function(result,err){
+      return fn(result);
+    });
   },
   register: function(req, res){
     user.createUser(req.body,function(result){
@@ -57,7 +56,8 @@ var auth = {
 function genToken(user) {
   var expires = expiresIn(7); // 7 jours
   var token = jwt.encode({
-    exp: expires
+    exp: expires,
+    user: user
   }, require('../config/secret')());
 
   return {
