@@ -6,11 +6,27 @@ var moment = require('moment');//Gérer les heures de manière intelligente
 
 var course = {
   getOne: function(req, res){
+    //Professeur:
     //On récupère l'id en fonction de l'heure de cours et de la date d'aujourd'hui
     //Le formatage de l'heure se fait avec momentjs
-    db.query('SELECT * FROM course WHERE date='+moment().format('L')
-    +'AND'
-    + moment().format('LT') + 'BETWEEN'+ 'HeureDebut AND HeureFin');
+    var sql = model.selectAll('id_Course',table);
+    var result = db.query(sql+ 'WHERE date='+moment().format('L')
+    +' AND '+ moment().format('LT') + ' BETWEEN '+ 'start_Time AND end_Time');
+
+  },
+  getAll: function(req, res){
+    //Admin:
+    //Lister tous les cours
+    var sql = model.selectAll('*',table);
+    var result = db.query(sql,function(res,err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log(res);
+      }
+    });
+    res.send(result);
   }
 };
 module.exports = course;

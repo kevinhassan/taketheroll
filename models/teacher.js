@@ -5,7 +5,8 @@ var model = require('./model');
 
 var teacher = {
   takeTheRoll:function(req,res){
-
+    //Met bool_roll à vrai
+    //Créer des absences 
   }
 };
 

@@ -8,12 +8,9 @@ var teacher = require('../models/teacher');
 var absence = require('../models/absence');
 var late = require('../models/late');
 var course = require('../models/course');
+var user = require('../models/user');
 
-router.get("/",student.getAll);
-router.get("/:id",student.getOne);
-router.delete("/:id",student.delete);
-router.post("/",student.create);
-router.put("/:id",student.update);
+
 /*
 router.get("/",function(req,res){
   res.status(200);
@@ -71,9 +68,9 @@ router.get('/api/admin/students/:id', student.getOne);
 router.post('/api/admin/students/', student.create);
 router.put('/api/admin/students/:id', student.update);
 router.delete('/api/admin/students/:id', student.delete);
-//Consuler les alertes récentes
-router.get('/api/admin/alerts',admin.showAlert);//Liste toute les absences et retards
+
 //Gérer les absences en fonction du cours
+router.get('/api/admin/courses',course.getAll);
 router.get('/api/admin/courses/:id/absences',absence.getAll);
 router.get('/api/admin/courses/:idCourse/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/courses/:idCourse/absences/:idAbsence',absence.justify);//Si justification suffisante passe à justifié
