@@ -1,11 +1,20 @@
 var db = require('../config/database');
 var table = 'absence';
 var pk = 'id_Absence';//Primary key
+
 var model = require('./model');
+var student = require('./student');
+var course = require('./course');
 
 var absence = {
-  getAll: function(req, res){//Student : récupérer son id,Admin: afficher toute absence d'un éléve, ou d'un cours
-    var sql = model.selectAll('*',table);
+  getAll: function(req, res){
+    if(typeof req.params.idStudent !== 'undefined' && req.params.idStudent){//Cas de l'administration
+      var sql = model.selectWhere('*',table,student.pk,req.params.idStudent);
+    }
+    else{//Cas de l'étudiant
+      //Récupérer l'id de l'étudiant connécté
+      var sql = model.selectWhere('*',table,student.pk,req.params.idStudent);
+    }
     var result = db.query(sql,function(res,err){
       if(err){
         console.log(err);
@@ -15,6 +24,7 @@ var absence = {
       }
     });
     res.send(result);
+
   },
   getOne: function(req, res){//Récupérer l'id de l'user(student) + celui de l'absence
     var idCourse = req.params.idCourse;
@@ -32,7 +42,8 @@ var absence = {
   },
   create: function(req, res){
     var idCourse = req.params.idCourse;
-    var newAbsence = {'id_Course':idCourse,'bool_Justify':false};
+    var idStudent = req.params.idStudent;
+    var newAbsence = {'id_Course':idCourse,'bool_Justify':false,'id_Student':idStudent};
     var sql = model.create(table,newAbsence);
     var result = db.query(sql,function(res,err){
       if(err){
@@ -58,10 +69,9 @@ var absence = {
     res.send(result);
   },
   justify: function(req, res){
-    var idCourse = req.params.idCourse;
     var idAbsence = req.params.idAbsence;
     var updateData = {'bool_justify':true};//A recupèrer dans le formulaire
-    var sql = model.update(table,updateData,pk,id);
+    var sql = model.update(table,updateData,pk,idAbsence);
     var result = db.query(sql,function(res,err){
       if(err){
         console.log(err);

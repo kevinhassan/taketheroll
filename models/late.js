@@ -1,7 +1,10 @@
 var db = require('../config/database');
 var table = 'late';
 var pk = 'id_Late';//Primary key
+
 var model = require('./model');
+var student = require('./student');
+var course = require('./course');
 
 var late = {
   getAll: function(req, res){//Student : récupérer son id,Admin: afficher toute retard d'un éléve, ou d'un cours
