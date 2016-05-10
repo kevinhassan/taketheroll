@@ -2,31 +2,28 @@
 var query = function(sql, callback)
 {
   var pg = require('pg');
-  var connectionString = "postgres://"
-                  +process.env.DB_USER+":"
-                  +process.env.DB_PASS+"@"
-                  +process.env.DB_HOST+'/'
-                  +process.env.DB_NAME;
-  var results = [];
-  pg.connect(connectionString, function(err, client, done) {
-    // Handle connection errors
-    if(err) {
-      done();
-      // Callback the error instead
-      callback(null,{'status':500,'success': false,'data': err});
-      return;
+  var connectionString = process.env.DB_URL;
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(error, client, done) {
+    // Problème de la connexion à la BD
+    if(error) {
+      console.error('Connection failed to postgres database',error);
+      var error = new Error("Connection failed to postgres database");
+      error.http_code = 500;
+      return callback(null,error);
     }
-    var query = client.query(sql);
-    // Stream results back one row at a time
-    query.on('row', function(row) {
-        results.push(row);
-    });
-    // After all data is returned, close connection and return results
-    query.on('end', function() {
-        done();
-        // Callback function call instead
-        callback(results,null);
-        return;
+    client.query(sql,function(error, result){
+      //On ferme la connexion
+      client.end();
+      if(error){
+        console.error('Query return an error',error);
+        var error = new Error("Query return an error");
+        error.http_code = 400;
+        return callback(null,error);
+      }
+      // No error
+      callback(result.rows,null);
+      return;
     });
   });
 };

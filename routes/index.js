@@ -15,7 +15,7 @@ var user = require('../models/user');
 
 router.get("/",function(req,res){
   res.status(200);
-  res.json({"message" : "Bienvenu à l'accueil"});
+  res.json({"message" : "Bienvenue à l'accueil"});
 });
 
 router.get("/login",function(req,res){
@@ -24,8 +24,8 @@ router.get("/login",function(req,res){
 });
 //On vérifie les données saisies et on redirige en /student/ ou /teacher/ ou /admin/
 router.post("/login",auth.login);
-
-//---------------------Seul les étudiants peuvent y accéder--------------------------------//
+router.post('/register',auth.register);//Temporaire
+//---------------------Seul les étudiants peuvent y accéder--------------------//
 router.get('/api/student/absence', absence.getAll);
 router.get('/api/student/absence/:id', absence.getOne);
 //Justifier absence
