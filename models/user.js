@@ -12,7 +12,6 @@ var user = {
         if(res[0].password == user.password)
         {
           var result = {'id_User':res[0].id_User,'role':res[0].role};
-          console.log(result);
           return fn(result,null);
         }
       }

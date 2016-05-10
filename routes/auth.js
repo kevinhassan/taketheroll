@@ -37,6 +37,8 @@ var auth = {
   validate: function(req,res) {
   //On requête la base de donnée et on renvoie l'objet utilisateur
     var dbUserObj = user.getUser(req.body,function(result){
+      console.log(result);
+      return;
     });
     return dbUserObj;
   },
