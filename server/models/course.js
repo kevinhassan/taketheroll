@@ -7,33 +7,51 @@ var moment = require('moment');//Gérer les heures de manière intelligente
 var teacher = require('./teacher');
 
 var course = {
-  getOne: function(req, fn){
+  getOne: function(req, res){
     //Professeur:
     //On récupère l'id en fonction de l'heure de cours et de la date d'aujourd'hui
     //Le formatage de l'heure se fait avec momentjs
     var sql = model.selectAll('id_Course',table);
     db.query(sql+ ' WHERE date='+moment().format('L')
-    +' AND '+ moment().format('LT') + ' BETWEEN '+ 'start_Time AND end_Time',function(result,err){
+    +' AND '+ moment().format('LT') + ' BETWEEN '+ 'start_Time AND end_Time',function(course,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
+      }
+      else if(course.length == 0){
+        res.status(200).send({
+          "status": 200,
+          "message": "Il n'y a pas de cours maintenant",
+        });
       }
       else{
-        return fn(result,null);
+        res.status(200).send({
+          "status": 200,
+          "message": "Cours trouvés",
+          "course": course
+        });
       }
     });
   },
-  getAll: function(req, fn){
+  getAll: function(req, res){
     //Admin:
     //Lister tous les cours
     var sql = model.selectAll('*',table);
-    db.query(sql,function(result,err){
+    db.query(sql, function(courses,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
+      }
+      else if(courses.length == 0){
+        res.status(200).send({
+          "status": 200,
+          "message": "Il n'y a pas de cours",
+        });
       }
       else{
-        return fn(result,null);
+        res.status(200).send({
+          "status": 200,
+          "message": "Cours trouvés",
+          "courses": courses
+        });
       }
     });
   },

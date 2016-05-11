@@ -45,8 +45,7 @@ var admin = {
       else{
         res.status(200).send({
           "status": 201,
-          "message": "Absence supprimée",
-          "admin": admin
+          "message": "Administrateur supprimée"
         });
       }
     });

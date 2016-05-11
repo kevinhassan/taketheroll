@@ -144,5 +144,6 @@ var absence = {
         });
       }
     });
+  }
 };
 module.exports = absence;
