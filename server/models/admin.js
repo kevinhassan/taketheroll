@@ -20,7 +20,8 @@ var admin = {
   },
   create: function(req, res){//Crée un administrateur
     if(req.body.nom != undefined && req.body.prenom != undefined){
-      var sql = 'INSERT INTO '+table+' ("name"'+',"nickname") VALUES ("'+req.body.nom+'",'+req.body.nom+')';
+      var sql = 'INSERT INTO '+table+' ("name"'+',"nickname")'+
+                ' VALUES ("'+req.body.nom+'",'+req.body.nom+')';
     }
     db.query(sql, function(admin,err){
       if(err){

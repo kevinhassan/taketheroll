@@ -1,10 +1,11 @@
 var tokenInspector = require('../config/tokenInspector');
+
 module.exports = function(req, res, next) {
 
   var token = tokenInspector.getToken(req);
   if (token) {
         // Check wether date is valid or not
-        if (getExp(token) <= Date.now()) {
+        if (tokenInspector.getExp(token) <= Date.now()) {
             // Send back the result
             res.status(400);
             res.json({
@@ -13,7 +14,7 @@ module.exports = function(req, res, next) {
             });
             return;
         }
-        var role = getRole(token);
+        var role = tokenInspector.getRole(token);
         //On définit les routes autorisé en fonction des rôles
         if (req.url.indexOf('api/admin') >0 && role == 'administrator') {
                 next(); // To move to next middleware

@@ -3,15 +3,15 @@ var jwt = require('jwt-simple');
 var tokenInspector = {
 
   getUserId: function(token){
-    return jwt.decode(token, require('./config/secret')()).id;
+    return jwt.decode(token, require('./secret')()).user.id_User;
   },
 
   getExp: function(token){
-    return jwt.decode(token, require('./config/secret')()).exp;
+    return jwt.decode(token, require('./secret')()).exp;
   },
 
   getRole: function(token){
-    return jwt.decode(token, require('./config/secret')()).role;
+    return jwt.decode(token, require('./secret')()).user.role;
   },
 
   getToken: function(req){
