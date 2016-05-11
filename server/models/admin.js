@@ -17,7 +17,40 @@ var admin = {
         return fn(result,null);
       }
     });
-  }
+  },
+  create: function(req, res){//Crée un administrateur
+    if(req.body.nom != undefined && req.body.prenom != undefined){
+      var sql = 'INSERT INTO '+table+' ("name"'+',"nickname") VALUES ("'+req.body.nom+'",'+req.body.nom+')';
+    }
+    db.query(sql, function(admin,err){
+      if(err){
+        catchError(res,err);
+      }
+      else{
+        res.status(200).send({
+          "status": 201,
+          "message": "administrateur crée",
+          "admin": admin
+        });
+      }
+    });
+  },
+  delete: function(req, res){
+    var id = req.params.id;
+    var sql = 'DELETE FROM '+table+' WHERE "'+pk+'"='+id;
+    db.query(sql,function(admin,err){
+      if(err){
+        catchError(res,err);
+      }
+      else{
+        res.status(200).send({
+          "status": 201,
+          "message": "Absence supprimée",
+          "admin": admin
+        });
+      }
+    });
+  },
 }
 
 module.export = admin;

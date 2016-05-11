@@ -1,7 +1,7 @@
 var db = require('../config/database');
 var table = 'absence';
 var pk = 'id_Absence';//Primary key
-var catchError = require('../config/catchError');
+var catchError = require('../config/catchError').catchError;
 var model = require('./model');
 var student = require('./student');
 var course = require('./course');
@@ -26,7 +26,7 @@ var absence = {
         if(err){
           catchError(res,err);
         }
-        if(absences.length == 0){
+        else if(absences.length == 0){
           res.status(204).send({
             "status": 204,
             "message": "Il n'y a pas d'absence",
@@ -56,7 +56,7 @@ var absence = {
       if(err){
         catchError(res,err);
       }
-      if(absences.length == 0){
+      else if(absences.length == 0){
         res.status(204).send({
           "status": 204,
           "message": "Il n'y a pas d'absence",
