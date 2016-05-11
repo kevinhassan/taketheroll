@@ -2,8 +2,12 @@ exports.selectAll = function(selector,table){
   var sql = "SELECT "+selector+" FROM "+table;
   return sql;
 }
-exports.selectWhere = function(selector,table,pk,id){
-  var sql = 'SELECT '+selector+' FROM '+table+' WHERE '+'"'+pk+'"'+'='+"'"+id+"'";
+exports.selectWhere = function(selector,table,elements){
+  var sql = 'SELECT '+selector+' FROM '+table+' WHERE';
+  for(var column in elements) {
+    sql += ' "'+column+'"='+"'"+elements[column]+"' AND";
+  }
+  sql = sql.substring(0, sql.length - 3);//On enlève le "AND" en trop
   return sql;
 }
 exports.deleteWhere = function(table,pk,id){
@@ -25,12 +29,16 @@ exports.create = function(table,data){
   sql += keys + values;
   return sql;
 }
-exports.update= function(table,updateData,pk,id){
+exports.update= function(table,updateData,conditions){
   var sql = "UPDATE "+table+" SET ";
   for(var key in updateData) {
    sql += '"'+key+'"'+"="+"'"+updateData[key]+"'"+" ,";
   }
   sql =  sql.substring(0, sql.length - 1);//On enlève le ',' en trop
-  sql += "WHERE "+'"'+pk+'"'+"="+id;
+  sql += "WHERE ";
+  for(var column in conditions) {
+    sql += ' "'+column+'"='+"'"+conditions[column]+"' AND";
+  }
+  sql = sql.substring(0, sql.length - 3);//On enlève le "AND" en trop
   return sql;
 }

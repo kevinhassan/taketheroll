@@ -5,23 +5,26 @@ var pk = 'id_Administrator';//Primary key
 var model = require('./model');
 
 var admin = {
-  getOne: function(req, fn){
+  getOne: function(req,res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
-    var sql = model.selectWhere('*',table,pk,id);
-    db.query(sql,function(result,err){
+    var sql = model.selectWhere('*',table,{pk:id});
+    db.query(sql,function(admin,err){
       if(err){
         console.error(err);
         return fn(null,err);
       }
       else{
-        return fn(result,null);
+        return fn(admin,null);
       }
     });
   },
   create: function(req, res){//Crée un administrateur
     if(req.body.nom != undefined && req.body.prenom != undefined){
-      var sql = 'INSERT INTO '+table+' ("name"'+',"nickname")'+
-                ' VALUES ("'+req.body.nom+'",'+req.body.nom+')';
+      var sql = model.create(table,{"name":req.body.nom,
+                                    "nickname":req.body.nickname
+                                    });
+      /*var sql = 'INSERT INTO '+table+' ("name"'+',"nickname")'+
+                ' VALUES ("'+req.body.nom+'",'+req.body.nom+')';*/
     }
     db.query(sql, function(admin,err){
       if(err){
@@ -38,7 +41,8 @@ var admin = {
   },
   delete: function(req, res){
     var id = req.params.id;
-    var sql = 'DELETE FROM '+table+' WHERE "'+pk+'"='+id;
+    var sql = model.deleteWhere(table,pk,id);
+    //var sql = 'DELETE FROM '+table+' WHERE "'+pk+'"='+id;
     db.query(sql,function(admin,err){
       if(err){
         catchError(res,err);

@@ -27,8 +27,8 @@ var student = {
     });
 },
   getOne: function(req, res){
-    var id = req.params.idStudent;//On récupère l'id de l'étudiant à afficher
-    var sql = model.selectWhere('*',table,pk,id);
+    var idStudent = req.params.idStudent;//On récupère l'id de l'étudiant à afficher
+    var sql = model.selectWhere('*',table,{pk:idStudent});
     db.query(sql, function(student,err){
       if(err){
         catchError(res,err);
@@ -64,9 +64,11 @@ var student = {
     });
   },
   update: function(req, res){
-    var idStudent = req.params.idStudent;
     var updateData = req.body;
-    var sql = model.update(table,updateData,pk,id);
+    var sql = model.update(table,updateData, {"id_Student":req.params.idStudent,
+                                              "id_Late":req.params.idLate
+                                              });
+
     db.query(sql, function(student,err){
       if(err){
         catchError(res,err);
@@ -80,7 +82,7 @@ var student = {
       }
     });
   },
-  delete: function(req, fn){
+  delete: function(req, res){
     var idStudent = req.params.idStudent;
     var sql = model.deleteWhere(table,pk,idStudent);
     db.query(sql,function(result,err){

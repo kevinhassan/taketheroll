@@ -7,7 +7,8 @@ var crypt = require('../auth/config/crypt')
 
 var user = {
   getUser: function(user,fn){
-    var sql = 'SELECT "'+pk+'", "role", "password" FROM '+table+' WHERE "username"='+"'"+user.username+"'";
+    var sql = model.selectWhere('"'+pk+'", "role", "password"', table,{"username":user.username});
+    //var sql = 'SELECT "'+pk+'", "role", "password" FROM '+table+' WHERE "username"='+"'"+user.username+"'";
     db.query(sql,function(res,err){
       if(res[0] !== undefined)
       {
