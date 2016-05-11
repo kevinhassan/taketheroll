@@ -1,73 +1,74 @@
 var db = require('../config/database');
 var table = 'student';
 var pk = 'id_Student';//Primary key
+var catchError = require('../config/catchError');
 var model = require('./model');
 
 var student = {
-  getAll: function(req, res){
+  getAll: function(req, fn){
     var sql = model.selectAll('*',table);
-    var result = db.query(sql,function(res,err){
+    db.query(sql,function(result,err){
       if(err){
-        console.log(err);
+        console.error(err);
+        return fn(null,err);
       }
       else{
-        console.log(res);
+        return fn(result,null);
       }
     });
-    res.send(result);
   },
-  getOne: function(req, res){
+  getOne: function(req, fn){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
     var sql = model.selectWhere('*',table,pk,id);
-    var result = db.query(sql,function(res,err){
+    db.query(sql,function(result,err){
       if(err){
-        console.log(err);
+        console.error(err);
+        return fn(null,err);
       }
       else{
-        console.log(res);
-      }
-    });;
-    res.send(result);
-  },
-  create: function(req, res){
-    var newStudent = req.body;
-    var sql = model.create(table,newStudent);
-    var result = db.query(sql,function(res,err){
-      if(err){
-        console.log(err);
-      }
-      else{
-        console.log(res);
+        return fn(result,null);
       }
     });
-    res.send(result);
   },
-  update: function(req, res){
+  create: function(req, fn){
+    var newStudent = req.body;
+    var sql = model.create(table,newStudent);
+    db.query(sql,function(result,err){
+      if(err){
+        console.error(err);
+        return fn(null,err);
+      }
+      else{
+        return fn(result,null);
+      }
+    });
+  },
+  update: function(req, fn){
     var id = req.params.id;
     var updateData = req.body;
     var sql = model.update(table,updateData,pk,id);
-    var result = db.query(sql,function(res,err){
+    db.query(sql,function(result,err){
       if(err){
-        console.log(err);
+        console.error(err);
+        return fn(null,err);
       }
       else{
-        console.log(res);
+        return fn(result,null);
       }
     });
-    res.send(result);
   },
-  delete: function(req, res){
+  delete: function(req, fn){
     var id = req.params.id;
     var sql = model.deleteWhere(table,pk,id);
-    var result = db.query(sql,function(res,err){
+    db.query(sql,function(result,err){
       if(err){
-        console.log(err);
+        console.error(err);
+        return fn(null,err);
       }
       else{
-        console.log(res);
+        return fn(result,null);
       }
     });
-    res.send(result);
   }
 };
 module.exports = student;

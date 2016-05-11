@@ -1,6 +1,7 @@
 var db = require('../config/database');
 var table = 'users';
 var pk = 'id_User';//Primary key
+var catchError = require('../config/catchError');
 var model = require('./model');
 var crypt = require('../auth/config/crypt')
 
@@ -16,7 +17,7 @@ var user = {
           return fn(result,null);
         }
         else{//Le mot de passe ne correspond pas
-
+          console.error("Le mot de passe n'est pas bon");
         }
       }
       else{

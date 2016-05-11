@@ -44,15 +44,15 @@ var auth = {
   register: function(req, res){
     user.createUser(req.body,function(result){
       res.status(201).send({
-        'status':'201',
-        'message':'User created'
+        'status':201,
+        'message':'Utilisateur crée'
       });
       return;
     });
   }
 }
 
-//Methode pour le token
+//Methode de génération du token
 function genToken(user) {
   var expires = expiresIn(7); // 7 jours
   var token = jwt.encode({

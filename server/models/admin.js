@@ -1,22 +1,23 @@
 var db = require('../config/database');
 var table = 'administrator';
+var catchError = require('../config/catchError');
 var pk = 'id_Administrator';//Primary key
 var model = require('./model');
 
 var admin = {
-  getOne: function(req, res){
+  getOne: function(req, fn){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
     var sql = model.selectWhere('*',table,pk,id);
-    var result = db.query(sql,function(res,err){
+    db.query(sql,function(result,err){
       if(err){
-        console.log(err);
+        console.error(err);
+        return fn(null,err);
       }
       else{
-        console.log(res);
+        return fn(result,null);
       }
     });
-    res.send(result);
   }
-};
+}
 
 module.export = admin;

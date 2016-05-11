@@ -23,7 +23,6 @@ module.exports = function(req, res, next) {
             return;
         }
         var role = decoded.user.role;
-        // Authorize the user to see if s/he can access our resources
         //On définit les routes autorisé en fonction des rôles
         if (req.url.indexOf('api/admin') >0 && role == 'administrator') {
                 next(); // To move to next middleware
@@ -42,7 +41,6 @@ module.exports = function(req, res, next) {
             });
             return;
         }
-        //next();
       }
   else {
     res.status(401);

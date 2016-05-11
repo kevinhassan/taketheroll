@@ -68,19 +68,19 @@ router.delete('/api/admin/students/:id', student.delete);
 
 //Gérer les absences en fonction du cours
 router.get('/api/admin/courses',course.getAll);
-router.get('/api/admin/courses/:id/absences',absence.getAll);
+router.get('/api/admin/courses/:idCourse/absences',absence.getAll);
 router.get('/api/admin/courses/:idCourse/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/courses/:idCourse/absences/:idAbsence',absence.justify);//Si justification suffisante passe à justifié
-router.post('/api/admin/courses/:idCourses/absence',absence.create);//Ajouter une absence justifier avant le cours par l'éléve
+router.post('/api/admin/courses/:idCourse/absences',absence.createAdvertAbsence);//Ajouter une absence justifier avant le cours par l'éléve
 //Gérer les retards en fonction du cours
 router.get('/api/admin/courses/:id/late',late.getAll);
 router.get('/api/admin/courses/:idCourse/late/:idLate',late.getOne);
 router.put('/api/admin/courses/:idCourse/late/:idLate',late.justify);//Passe a justifié si étudiant a une justification
 //Gérer les absences en fonction de l'étudiant
-router.get('/api/admin/students/:id/absences',absence.getAll);
+router.get('/api/admin/students/:idStudent/absences',absence.getAll);
 router.get('/api/admin/students/:idStudent/absences/:idAbsence',absence.getOne);
 router.put('/api/admin/students/:idStudent/absences/:idAbsence',absence.justify);//Si justification suffisante l'absence est justifiée
-router.post('/api/admin/students/:id/absences',absence.create);//Ajouter une absence justifier avant le cours par l'éléve
+router.post('/api/admin/students/:idStudent/absences',absence.createAdvertAbsence);//Ajouter une absence justifier avant le cours par l'éléve
 //Gérer les retards en fonction de l'étudiant
 router.get('/api/admin/students/:id/lates',late.getAll);
 router.get('/api/admin/students/:idStudent/lates/:idLate',late.getOne);
