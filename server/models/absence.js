@@ -102,7 +102,7 @@ var absence = {
         catchError(res,err);
       }
       else{
-        res.status(200).send({
+        res.status(201).send({
           "status": 201,
           "message": "Absence prévue créée",
           "absence": absence
@@ -119,7 +119,7 @@ var absence = {
       }
       else{
         res.status(200).send({
-          "status": 201,
+          "status": 200,
           "message": "Absence supprimée",
           "absence": absence
         });
@@ -133,15 +133,16 @@ var absence = {
     else if(req.params.idStudent != undefined && req.params.idAbsence != undefined){//Crée une absence en passant par l'éléve
       var sql = 'UPDATE '+table+' SET "bool_Justify" = true WHERE "id_Student"='+req.params.idStudent+' AND "id_Absence"='+req.params.idAbsence;
     }
-    db.query(sql,function(result,err){
+    db.query(sql,function(absence,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
       }
       else{
-        return fn(result,null);
+        res.status(200).send({
+          "status": 200,
+          "message": "Absence devient justifiée"
+        });
       }
     });
-  }
 };
 module.exports = absence;
