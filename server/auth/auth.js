@@ -58,7 +58,7 @@ function genToken(user) {
   var token = jwt.encode({
     exp: expires,
     user: user
-  }, require('../config/secret')());
+  }, require('./config/secret')());
 
   return {
     token: token,
