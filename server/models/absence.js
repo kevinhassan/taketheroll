@@ -27,8 +27,8 @@ var absence = {
           catchError(res,err);
         }
         else if(absences.length == 0){
-          res.status(204).send({
-            "status": 204,
+          res.status(200).send({
+            "status": 200,
             "message": "Il n'y a pas d'absence",
           });
         }
@@ -57,8 +57,8 @@ var absence = {
         catchError(res,err);
       }
       else if(absences.length == 0){
-        res.status(204).send({
-          "status": 204,
+        res.status(200).send({
+          "status": 200,
           "message": "Il n'y a pas d'absence",
         });
       }

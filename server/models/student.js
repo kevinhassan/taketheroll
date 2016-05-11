@@ -5,28 +5,46 @@ var catchError = require('../config/catchError');
 var model = require('./model');
 
 var student = {
-  getAll: function(req, fn){
+  getAll: function(req, res){
     var sql = model.selectAll('*',table);
-    db.query(sql,function(result,err){
+    db.query(sql, function(students,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
+      }
+      else if(students.length == 0){
+        res.status(200).send({
+          "status": 200,
+          "message": "Il n'y a pas d'étudiants",
+        });
       }
       else{
-        return fn(result,null);
+        res.status(200).send({
+          "status": 200,
+          "message": "Etudiants trouvées",
+          "students": students
+        });
       }
     });
-  },
-  getOne: function(req, fn){
+},
+  getOne: function(req, res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
     var sql = model.selectWhere('*',table,pk,id);
-    db.query(sql,function(result,err){
+    db.query(sql, function(student,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
+      }
+      else if(student.length == 0){
+        res.status(200).send({
+          "status": 200,
+          "message": "Cet étudiant n'existe pas",
+        });
       }
       else{
-        return fn(result,null);
+        res.status(200).send({
+          "status": 200,
+          "message": "Etudiant trouvé",
+          "student": student
+        });
       }
     });
   },
