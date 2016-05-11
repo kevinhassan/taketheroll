@@ -75,7 +75,6 @@ var absence = {
     if(req.params.idCourse != undefined && req.body.idStudent != undefined){//Le secrétariat crée une absence justifié par l'éléve
       var sql = 'INSERT INTO '+table+' ("id_Course"'+',"id_Student") VALUES ("'+req.params.idCourse+'",'+req.body.idStudent+')';
     }
-    var sql = model.create(table,newAbsence);
     db.query(sql, function(absence,err){
       if(err){
         catchError(res,err);
@@ -113,7 +112,7 @@ var absence = {
   },
   delete: function(req, res){
     var id = req.params.id;
-    var sql = model.deleteWhere(table,pk,id);
+    var sql = 'DELETE FROM '+table+' WHERE "'+pk+'"='+id;
     db.query(sql,function(absence,err){
       if(err){
         catchError(res,err);
@@ -134,10 +133,6 @@ var absence = {
     else if(req.params.idStudent != undefined && req.params.idAbsence != undefined){//Crée une absence en passant par l'éléve
       var sql = 'UPDATE '+table+' SET "bool_Justify" = true WHERE "id_Student"='+req.params.idStudent+' AND "id_Absence"='+req.params.idAbsence;
     }
-
-    var idAbsence = req.params.idAbsence;
-    var updateData = {'bool_justify':true};//A recupèrer dans le formulaire
-    var sql = model.update(table,updateData,pk,idAbsence);
     db.query(sql,function(result,err){
       if(err){
         console.error(err);
