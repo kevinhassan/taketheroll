@@ -26,16 +26,16 @@ router.get("/login",function(req,res){
 router.post("/login",auth.login);
 router.post('/register',auth.register);//Temporaire
 //---------------------Seul les étudiants peuvent y accéder--------------------//
-router.get('/api/student/absence', absence.getAll);
-router.get('/api/student/absence/:id', absence.getOne);
+router.get('/api/student/absences', absence.getAll);
+router.get('/api/student/absences/:idAbsence', absence.getOne);
 //Justifier absence
-router.post('/api/student/absence/:id', function(req,res)
+router.post('/api/student/absences/:idAbsence', function(req,res)
 {
     res.status(200);
     res.json({"message": "Justificatif transmis pour l'absence"});
 });
 //avertir d'une absence
-router.post('/api/student/absence', function(req,res){
+router.post('/api/student/absences', function(req,res){
   res.status(200);
   res.json({"message": "Justificatif transmis"});
 });

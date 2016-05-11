@@ -42,8 +42,8 @@ var absence = {
       });
   },
   getOne: function(req, res){//Récupérer une absence
-    if(req.params.idCourse != undefined && req.params.idStudent!= undefined){//Le secrétariat affiche l'absence dans un cours
-      var sql = 'SELECT * FROM '+table+' WHERE '+'"id_Course"'+'='+req.params.idCourse+' AND '+'"id_Student"'+'='+req.params.idStudent;
+    if(req.params.idCourse != undefined && req.params.idAbsence!= undefined){//Le secrétariat affiche l'absence dans un cours
+      var sql = 'SELECT * FROM '+table+' WHERE '+'"id_Course"'+'='+req.params.idCourse+' AND '+'"id_Absence"'+'='+req.params.idAbsence;
     }
     else if(req.params.idAbsence!= undefined && req.params.idStudent!= undefined){//Le secrétariat affiche l'absence par rapport à un étudiant
     var sql = 'SELECT * FROM '+table+' WHERE '+'"id_Absence"'+'='+req.params.idAbsence+' AND '+'"id_Student"'+'='+req.params.idStudent;
@@ -66,13 +66,13 @@ var absence = {
         res.status(200).send({
           "status": 200,
           "message": "Absence trouvée",
-          "absences": absence
+          "absence": absence
         });
       }
     });
   },
   create: function(req, res){//Crée absence après l'appel
-    if(req.params.idCourse != undefined && req.body.idStudent != undefined){//Le secrétariat crée une absence justifié par l'éléve
+    if(req.params.idCourse != undefined && req.body.idStudent != undefined){
       var sql = 'INSERT INTO '+table+' ("id_Course"'+',"id_Student") VALUES ("'+req.params.idCourse+'",'+req.body.idStudent+')';
     }
     db.query(sql, function(absence,err){
@@ -127,8 +127,8 @@ var absence = {
     });
   },
   justify: function(req, res){
-    if(req.params.idCourse != undefined && req.params.idStudent != undefined){//Le secrétariat passe l'absence a justifiee après avoir selectionne l'absence concernée dans le cours
-      var sql = 'UPDATE '+table+' SET "bool_Justify" = true WHERE "id_Course"='+req.params.id_Course+' AND "id_Student"='+req.params.id_Student;
+    if(req.params.idCourse != undefined && req.params.idAbsence != undefined){//Le secrétariat passe l'absence a justifiee après avoir selectionne l'absence concernée dans le cours
+      var sql = 'UPDATE '+table+' SET "bool_Justify" = true WHERE "id_Course"='+req.params.id_Course+' AND "id_Absence"='+req.params.idAbsence;
     }
     else if(req.params.idStudent != undefined && req.params.idAbsence != undefined){//Crée une absence en passant par l'éléve
       var sql = 'UPDATE '+table+' SET "bool_Justify" = true WHERE "id_Student"='+req.params.idStudent+' AND "id_Absence"='+req.params.idAbsence;
