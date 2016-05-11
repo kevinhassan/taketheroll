@@ -33,7 +33,7 @@ var admin = {
           "admin": admin
         });
       }
-    });
+    });//Ajouter à utilisateur
   },
   delete: function(req, res){
     var id = req.params.id;
@@ -48,7 +48,7 @@ var admin = {
           "message": "Administrateur supprimée"
         });
       }
-    });
+    });//Supprimer de utilisateur
   },
 }
 

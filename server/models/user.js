@@ -18,10 +18,11 @@ var user = {
         }
         else{//Le mot de passe ne correspond pas
           console.error("Le mot de passe n'est pas bon");
+          return fn(null,err);
         }
       }
       else{
-        console.error(err);
+        console.error("L'utilisateur est inconnu");
         return fn(null,err);//Utilisateur absent
       }
     });
