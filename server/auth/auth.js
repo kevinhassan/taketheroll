@@ -45,7 +45,7 @@ var auth = {
     user.createUser(req.body,function(result){
       res.status(201).send({
         'status':201,
-        'message':'Utilisateur crée'
+        'message':'Utilisateur créé'
       });
       return;
     });

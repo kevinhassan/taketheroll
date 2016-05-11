@@ -1,43 +1,34 @@
-var jwt = require('jwt-simple');
+var tokenInspector = require('../config/tokenInspector');
 module.exports = function(req, res, next) {
 
-  // When performing a cross domain request, you will recieve
-  // a preflighted request first. This is to check if our the app
-  // is safe.
-
-  // We skip the token outh for [OPTIONS] requests.
-  //if(req.method == 'OPTIONS') next();
-
-  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+  var token = tokenInspector.getToken(req);
   if (token) {
-        // Decoding the passed token
-        var decoded = jwt.decode(token, require('../config/secret.js')());
         // Check wether date is valid or not
-        if (decoded.exp <= Date.now()) {
+        if (getExp(token) <= Date.now()) {
             // Send back the result
             res.status(400);
             res.json({
                 "status": 400,
-                "message": "Token expired"
+                "message": "Token expiré"
             });
             return;
         }
-        var role = decoded.user.role;
+        var role = getRole(token);
         //On définit les routes autorisé en fonction des rôles
         if (req.url.indexOf('api/admin') >0 && role == 'administrator') {
                 next(); // To move to next middleware
         }
         else if (req.url.indexOf('api/student') > 0 && role == 'student') {
-                next(); // To move to next middleware
+                next();
         }
         else if (req.url.indexOf('api/teacher') > 0 && role == 'teacher') {
-                next(); // To move to next middleware
+                next();
         }
         else {
             res.status(403);
             res.json({
                 "status": 403,
-                "message": "Not Authorized"
+                "message": "Pas Autorisé"
             });
             return;
         }
@@ -46,7 +37,7 @@ module.exports = function(req, res, next) {
     res.status(401);
     res.json({
         "status": 401,
-        "message": "Missing token"
+        "message": "Token Manquant"
     });
     return;
   }
