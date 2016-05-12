@@ -56,7 +56,7 @@ router.post('/api/student/lates/:idLate', function(req,res){
 //-----------Seul les professeurs pourront y accèder---------------------------//
 router.get('/api/teacher/courses',course.getOne);
 router.get('/api/teacher/courses/:idCourse/students',student.getAll);//On récupère la liste pour faire l'appel
-router.post('/api/teacher/course/:idCourse/students',teacher.takeTheRoll);//Faire l'appel sur la liste des étudiants
+router.post('/api/teacher/course/:idCourse/students',course.takeTheRoll);//Faire l'appel sur la liste des étudiants
 /*Passer les absences en retard se fera avec un Trigger, ceux qui était déclaré absent et sont écrit en retard
 seront effacé de la table absent puis mit dans la table retard*/
 //-----------------------------------------------------------------------------//

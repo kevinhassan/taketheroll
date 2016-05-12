@@ -29,7 +29,7 @@ exports.create = function(table,data){
   sql += keys + values;
   return sql;
 }
-exports.update= function(table,updateData,conditions){
+exports.update = function(table,updateData,conditions){
   var sql = "UPDATE "+table+" SET ";
   for(var key in updateData) {
    sql += '"'+key+'"'+"="+"'"+updateData[key]+"'"+" ,";

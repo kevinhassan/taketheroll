@@ -55,7 +55,7 @@ var course = {
       }
     });
   },
-  taketheroll:function(req,fn){
+  /*taketheroll:function(req,fn){
     var updateData = {'bool_Roll':true};//A recupèrer dans le formulaire
     var sql = model.update(table,updateData,pk,id);
     db.query(sql,function(result,err){
@@ -67,6 +67,29 @@ var course = {
         return fn(result,null);
       }
     });
-  }
+  }*/
+  takeTheRoll:function(req,res){
+    //Met bool_roll à vrai
+    //On recoit les éléves absents en json
+    //On crée une absence pour chacun en renvoyant leur id
+    if(!isEmptyObject(req.body.student)){//Si y'a des absents
+      for(var student in req.body.student){
+        absence.create(student);
+      }
+    }
+      var sql = model.update(table,{"bool_roll":true},{"id_Course":req.params.idCourse});
+      db.query(sql, function(roll,err){
+        if(err){
+          catchError(res,err);
+        }
+        else{
+          res.status(201).send({
+            "status": 201,
+            "message": "L'appel vient d'être réalisé"
+          });
+        }
+      });
+    }
+    //Passer le booléen à vrai
 };
 module.exports = course;
