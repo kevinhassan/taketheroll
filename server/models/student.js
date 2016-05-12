@@ -28,7 +28,7 @@ var student = {
 },
   getOne: function(req, res){
     var idStudent = req.params.idStudent;//On récupère l'id de l'étudiant à afficher
-    var sql = model.selectWhere('*',table,{pk:idStudent});
+    var sql = model.selectWhere('*',table,{"id_Student":idStudent});
     db.query(sql, function(student,err){
       if(err){
         catchError(res,err);

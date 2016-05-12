@@ -7,7 +7,7 @@ var model = require('./model');
 var admin = {
   getOne: function(req,res){
     var id = req.params.id;//On récupère l'id de l'étudiant à afficher
-    var sql = model.selectWhere('*',table,{pk:id});
+    var sql = model.selectWhere('*',table,{"id_Administrator":id});
     db.query(sql,function(admin,err){
       if(err){
         console.error(err);
