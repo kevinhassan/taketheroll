@@ -1,29 +1,36 @@
 myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactory', 'AuthenticationFactory',
   function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
+    $scope.user = {
+      username: 'kevin.hassan@admin.umontpellier.fr',
+      password: 'test'
+    };
 
     $scope.login = function() {
 
-      var username = $scope.username,
-        password = $scope.password;
+      var username = $scope.user.username,
+        password = $scope.user.password;
 
       if (username !== undefined && password !== undefined) {
         UserAuthFactory.login(username, password).success(function(data) {
 
           AuthenticationFactory.isLogged = true;
-          $window.sessionStorage.token = data.token;
-          $location.path("/home");
+          AuthenticationFactory.user = data.user.username;
+          AuthenticationFactory.userRole = data.user.role;
 
-        }).error(function(response) {
-          if (response.status == 401)
-            alert("Mot de passe incorrect.");
-          else if (response.status == 404)
-            alert("Nom d'utilisateur incorrect.");
-          else
-            alert("Une erreur est survenue.");
+          $window.sessionStorage.token = data.token;
+          $window.sessionStorage.user = data.user.username; // to fetch the user details on refresh
+          $window.sessionStorage.userRole = data.user.role; // to fetch the user details on refresh
+
+          $location.path("/");
+
+        }).error(function(status) {
+          alert('Oops something went wrong!');
         });
       } else {
-        alert('Merci de renseignez les champs.');
+        alert('Invalid credentials');
       }
+
     };
+
   }
 ]);

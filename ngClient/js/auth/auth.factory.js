@@ -36,7 +36,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
         delete $window.sessionStorage.userid;
         delete $window.sessionStorage.userRole;
 
-        $location.path("/login");
+        $location.path("/");
       }
 
     }
