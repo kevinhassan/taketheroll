@@ -30,6 +30,25 @@ router.get("/login",function(req,res){
 router.post("/login",auth.login);
 router.post('/register',auth.register);//Temporaire
 
+//---------------------Accueil-------------------------------------------------//
+router.get("/api/student",function(req,res){
+  res.status(200);
+  res.json({"status":200,
+            "message" : "Bienvenue Etudiant !"
+          });
+});
+router.get("/api/teacher",function(req,res){
+  res.status(200);
+  res.json({"status":200,
+            "message" : "Bienvenue Professeur"
+          });
+});
+router.get("/api/admin",function(req,res){
+  res.status(200);
+  res.json({"status":200,
+            "message" : "Bienvenue Administrateur"
+          });
+});
 //---------------------Seul les étudiants peuvent y accéder--------------------//
 router.get('/api/student/absences', absence.getAll);
 router.get('/api/student/absences/:idAbsence', absence.getOne);
@@ -44,8 +63,8 @@ router.post('/api/student/absences', function(req,res){
   res.status(200);
   res.json({"message": "Justificatif transmis"});
 });
-router.get('/api/student/lates', late.getAll);
-router.get('/api/student/lates/:idLate', late.getOne);
+router.get('/api/student/lates',late.getAll);
+router.get('/api/student/lates/:idLate',late.getOne);
 //Justifier retard
 router.post('/api/student/lates/:idLate', function(req,res){
   res.status(200);

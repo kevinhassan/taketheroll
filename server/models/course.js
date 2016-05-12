@@ -72,12 +72,14 @@ var course = {
     //Met bool_roll à vrai
     //On recoit les éléves absents en json
     //On crée une absence pour chacun en renvoyant leur id
-    if(!isEmptyObject(req.body.student)){//Si y'a des absents
-      for(var student in req.body.student){
-        absence.create(student);
+    //Structure donnée des éléves absent : {"idStudent":[1,2,5,6]}
+    var idCourse = req.params.idCourse;
+    if(idCourse != undefined && req != undefined && req.idStudent.length>0){
+      for (var x in req.idStudent){
+        absence.create(req.idStudent[x],idCourse,res);
       }
-    }
-      var sql = model.update(table,{"bool_roll":true},{"id_Course":req.params.idCourse});
+      //Passer le booléen à vrai
+      var sql = model.update(table,{"bool_roll":true},{"id_Course":idCourse});
       db.query(sql, function(roll,err){
         if(err){
           catchError(res,err);
@@ -90,6 +92,10 @@ var course = {
         }
       });
     }
-    //Passer le booléen à vrai
+    else{
+      res.status(404).send({"status":404,
+                            "message":"L'appel ne peut pas être réaliser"})
+    }
+  }
 };
 module.exports = course;

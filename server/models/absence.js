@@ -89,15 +89,12 @@ var absence = {
       }
     });
   },
-  create: function(req, res){//Crée absence après l'appel
-    if(req.params.idCourse != undefined && req.body.idStudent != undefined){
-      var sql = model.create('*',table,{"id_Course":req.params.idCourse,
-                                        "id_Student": req.body.idStudent
-                                        });
+  create: function(req,idCourse, res){//Crée absence après l'appel
+      var sql = model.create(table,{"id_Course":idCourse,
+                                    "id_Student": req.body.idStudent
+                                    });
       /*var sql = 'INSERT INTO '+table+' ("id_Course"'+',"id_Student")'+
                                                   ' VALUES ("'+req.params.idCourse+'",'+req.body.idStudent+')';*/
-
-    }
     db.query(sql, function(absence,err){
       if(err){
         catchError(res,err);
@@ -114,7 +111,7 @@ var absence = {
 
   createAdvertAbsence: function(req, res){
     if(req.params.idCourse != undefined && req.body.idStudent != undefined){//Le secrétariat crée une absence justifié pour l'éléve en passant par le cours
-    var sql = model.create('*',table,{"bool_Justify":'true',
+    var sql = model.create(table,{"bool_Justify":'true',
                                       "id_Course": req.params.idCourse,
                                       "id_Student": req.body.idStudent
                                       });
@@ -122,7 +119,7 @@ var absence = {
                 ' VALUES (true,"'+req.params.idCourse+'",'+req.body.idStudent+')';*/
     }
     else if(req.params.idStudent != undefined && req.body.idCourse != undefined){//Crée une absence en passant par l'éléve
-    var sql = model.create('*',table,{"bool_Justify":'true',
+      var sql = model.create(table,{"bool_Justify":'true',
                                       "id_Course": req.body.idCourse,
                                       "id_Student": req.params.idStudent
                                       });

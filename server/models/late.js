@@ -87,7 +87,7 @@ var late = {
   },
   create: function(req, res){//Crée absence après l'appel
     if(req.params.idCourse != undefined && req.body.idStudent != undefined){
-      var sql = model.create('*',table,{"id_Course":req.params.idCourse,
+      var sql = model.create(table,{"id_Course":req.params.idCourse,
                                         "id_Student": req.body.idStudent
                                         });
 
