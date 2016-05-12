@@ -2,7 +2,7 @@ myApp.factory('AuthenticationFactory', function($window) {
   var auth = {
     isLogged: false,
     check: function() {
-      if ($window.sessionStorage.token && $window.sessionStorage.user) {
+      if ($window.sessionStorage.token) {
         this.isLogged = true;
       } else {
         this.isLogged = false;
@@ -28,10 +28,12 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
 
         AuthenticationFactory.isLogged = false;
         delete AuthenticationFactory.user;
+        delete AuthenticationFactory.userid;
         delete AuthenticationFactory.userRole;
 
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.user;
+        delete $window.sessionStorage.userid;
         delete $window.sessionStorage.userRole;
 
         $location.path("/login");
@@ -47,7 +49,6 @@ myApp.factory('TokenInterceptor', function($q, $window) {
       config.headers = config.headers || {};
       if ($window.sessionStorage.token) {
         config.headers['X-Access-Token'] = $window.sessionStorage.token;
-        config.headers['X-Key'] = $window.sessionStorage.user;
         config.headers['Content-Type'] = "application/json";
       }
       return config || $q.when(config);
