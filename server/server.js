@@ -38,6 +38,9 @@ app.use('/', routes);
 // Si la page n'existe pas envoyer une erreur 404
 app.use(function(req, res, next) {
   res.status(404);
+  res.send({"status":404,
+            "message":"La page demandée n'existe pas"
+          });
   next();
 });
 
