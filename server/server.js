@@ -43,7 +43,9 @@ app.use(function(req, res, next) {
           });
   next();
 });
-
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/ngClient/index.html'));
+});
 // Démarrer le server
 app.set('port', process.env.PORT || 8080);
 var server = app.listen(app.get('port'), function() {

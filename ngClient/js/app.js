@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ngRoute']);
+var myApp = angular.module('taketheroll', ['ngRoute']);
 
 myApp.config(function($routeProvider, $httpProvider) {
 

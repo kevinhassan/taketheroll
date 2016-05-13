@@ -1,14 +1,11 @@
 myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactory', 'AuthenticationFactory',
   function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
-    $scope.user = {
-      username: 'kevin.hassan@admin.umontpellier.fr',
-      password: 'test'
-    };
+
 
     $scope.login = function() {
 
-      var username = $scope.user.username,
-        password = $scope.user.password;
+      var username = $scope.username,
+        password = $scope.password;
 
       if (username !== undefined && password !== undefined) {
         UserAuthFactory.login(username, password).success(function(data) {

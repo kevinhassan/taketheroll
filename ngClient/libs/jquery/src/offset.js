@@ -98,8 +98,8 @@ jQuery.fn.extend({
 
 		// If we don't have gBCR, just use 0,0 rather than error
 		// BlackBerry 5, iOS 3 (original iPhone)
-		if ( typeof elem.getBoundingClientRect !== strundefined ) {
-			box = elem.getBoundingClientRect();
+		if ( typeof elem.getBounditaketherollRect !== strundefined ) {
+			box = elem.getBounditaketherollRect();
 		}
 		win = getWindow( doc );
 		return {
@@ -119,8 +119,8 @@ jQuery.fn.extend({
 
 		// Fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is its only offset parent
 		if ( jQuery.css( elem, "position" ) === "fixed" ) {
-			// We assume that getBoundingClientRect is available when computed position is fixed
-			offset = elem.getBoundingClientRect();
+			// We assume that getBounditaketherollRect is available when computed position is fixed
+			offset = elem.getBounditaketherollRect();
 
 		} else {
 			// Get *real* offsetParent

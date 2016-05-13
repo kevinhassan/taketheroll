@@ -28,13 +28,13 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
 
         AuthenticationFactory.isLogged = false;
         delete AuthenticationFactory.user;
-        delete AuthenticationFactory.userid;
-        delete AuthenticationFactory.userRole;
+        delete AuthenticationFactory.user.id;
+        delete AuthenticationFactory.user.role;
 
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.user;
-        delete $window.sessionStorage.userid;
-        delete $window.sessionStorage.userRole;
+        delete $window.sessionStorage.user.id;
+        delete $window.sessionStorage.user.role;
 
         $location.path("/");
       }
