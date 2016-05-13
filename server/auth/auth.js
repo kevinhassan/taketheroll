@@ -40,15 +40,6 @@ var auth = {
     var dbUserObj = user.getUser(User,function(result,err){
       return fn(result);
     });
-  },
-  register: function(req, res){
-    user.createUser(req.body,function(result){
-      res.status(201).send({
-        'status':201,
-        'message':'Utilisateur créé'
-      });
-      return;
-    });
   }
 }
 

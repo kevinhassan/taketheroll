@@ -49,7 +49,7 @@ var student = {
     });
   },
   create: function(req, res){
-    var newStudent = req.body;
+    var newStudent = req;
     var sql = model.create(table,newStudent);
     db.query(sql, function(student,err){
       if(err){

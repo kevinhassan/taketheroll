@@ -10,18 +10,21 @@ var admin = {
     var sql = model.selectWhere('*',table,{"id_Administrator":id});
     db.query(sql,function(admin,err){
       if(err){
-        console.error(err);
-        return fn(null,err);
+        catchError(res,err);
       }
       else{
-        return fn(admin,null);
-      }
-    });
-  },
+        res.status(200).send({
+          "status": 201,
+          "message": "administrateur crée",
+          "admin": admin
+        });
+    }
+  });
+},
   create: function(req, res){//Crée un administrateur
-    if(req.body.nom != undefined && req.body.prenom != undefined){
-      var sql = model.create(table,{"name":req.body.nom,
-                                    "nickname":req.body.nickname
+    if(req != undefined && req != undefined){
+      var sql = model.create(table,{"name":req.nom,
+                                    "nickname":req.nickname
                                     });
       /*var sql = 'INSERT INTO '+table+' ("name"'+',"nickname")'+
                 ' VALUES ("'+req.body.nom+'",'+req.body.nom+')';*/
@@ -31,13 +34,12 @@ var admin = {
         catchError(res,err);
       }
       else{
-        res.status(200).send({
+        res.status(201).send({
           "status": 201,
-          "message": "administrateur crée",
-          "admin": admin
+          "message": "Professeur créé"
         });
       }
-    });//Ajouter à utilisateur
+    });
   },
   delete: function(req, res){
     var id = req.params.id;

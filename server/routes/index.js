@@ -28,7 +28,7 @@ router.get("/login",function(req,res){
 });
 //On vérifie les données saisies et on redirige en /student/ ou /teacher/ ou /admin/
 router.post("/login",auth.login);
-router.post('/register',auth.register);//Temporaire
+router.post('/api/admin/register',user.create);
 
 //---------------------Accueil-------------------------------------------------//
 router.get("/api/student",function(req,res){

@@ -5,6 +5,10 @@ var catchError = require('../config/catchError');
 var model = require('./model');
 var crypt = require('../auth/config/crypt')
 
+var student = require('./student');
+var teacher = require('./teacher');
+var admin = require('./admin');
+
 var user = {
   getUser: function(user,fn){
     var sql = model.selectWhere('"'+pk+'", "role", "password"', table,{"username":user.username});
@@ -28,16 +32,42 @@ var user = {
       }
     });
   },
-  createUser: function(user,fn){
-    user.password = crypt.encrypt(user.password);
-    console.log(user);
+  create: function(user,res){
+    var user = user.body;
+    user.password = crypt.encrypt(user.password);//Username correspond au password
     var sql = model.create(table,user);
-    db.query(sql,function(res,err){
-      if (err){
-        console.error(err);
-        return fn(null,err);
+    db.query(sql,function(result){
+      if(err){
+        catchError(res,err);
       }
-      return fn(res,null);
+      else{
+        sql = model.selectWhere('id_User','users',{"username":user.username});//On remonte l'id de l'user créé
+        db.query(sql,function(idUser){
+          if(err){
+            catchError(res,err);
+          }
+          else{
+            delete user.username;
+            delete user.password;
+            if(user.role == 'student'){
+              delete user.role;
+              student.create(table,user);
+            }
+            else if(user.role == 'teachers'){
+              delete user.role;
+              teacher.create(table,user);
+            }
+            else if(user.role == 'administrator'){
+              delete user.role;
+              admin.create(table,user);
+            }
+          }
+        });
+        res.status(201).send({
+          'status':201,
+          'message':'Utilisateur créé'
+        });
+      }
     });
   }
 };

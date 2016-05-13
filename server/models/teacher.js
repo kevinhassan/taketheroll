@@ -49,7 +49,7 @@ var teacher = {
     });
   },
   create: function(req, res){
-    var newTeacher = req.body;
+    var newTeacher = req;
     var sql = model.create(table,newTeacher);
     db.query(sql, function(teacher,err){
       if(err){
