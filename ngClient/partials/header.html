@@ -1,4 +1,4 @@
-<nav class="navbar-fixed-top" role="navigation">
+<nav class="navbar-fixed-top red" role="navigation">
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo">PolyAbsence</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" ng-show="showMenu">menu</i></a>
@@ -7,7 +7,7 @@
       <li ng-class="{active:isActive('/page1')}"><a href="badges.html">Components</a></li>
       <li ng-class="{active:isActive('/page2')}"><a href="collapsible.html">Javascript</a></li>
       <li ng-class="{active:isActive('/page3')}"><a href="mobile.html">Mobile</a></li>
-      <li><a href="javascript:" ng-click="logout()">Logout</a>
+      <li><a ng-click="logout()">Logout</a></li>
     </ul>
     <ul class="side-nav" id="slide-out" ng-show="showMenu">
       <li ng-class="{active:isActive('/')}"><a href="sass.html">Accueil</a></li>

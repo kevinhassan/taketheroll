@@ -9,22 +9,20 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
 
       if (username !== undefined && password !== undefined) {
         UserAuthFactory.login(username, password).success(function(data) {
-
+          var role = data.token.user.role;
           AuthenticationFactory.isLogged = true;
-          AuthenticationFactory.user = data.user.username;
-          AuthenticationFactory.userRole = data.user.role;
+          AuthenticationFactory.userRole = role;
+          $window.sessionStorage.token = data.token.token;
 
-          $window.sessionStorage.token = data.token;
-          $window.sessionStorage.user = data.user.username; // to fetch the user details on refresh
-          $window.sessionStorage.userRole = data.user.role; // to fetch the user details on refresh
+            $location.path("/");
 
-          $location.path("/");
-
-        }).error(function(status) {
-          alert('Oops something went wrong!');
+        }).error(function(response) {
+          if(response.status == 401){
+            alert(response.message);
+          }
         });
       } else {
-        alert('Invalid credentials');
+        alert('Merci de renseignez les champs.');
       }
 
     };

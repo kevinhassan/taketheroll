@@ -33,41 +33,42 @@ var user = {
     });
   },
   create: function(user,res){
-    var user = user.body;
+    var user = user.body;//Contient plus de donnée que la table users
     user.password = crypt.encrypt(user.password);//Username correspond au password
-    var sql = model.create(table,user);
-    db.query(sql,function(result){
+    var sql = model.create(table,{"username":user["username"],"password":user["password"],"role":user["role"]});
+    db.query(sql,function(res,err){
       if(err){
         catchError(res,err);
       }
       else{
-        sql = model.selectWhere('id_User','users',{"username":user.username});//On remonte l'id de l'user créé
-        db.query(sql,function(idUser){
+        sql = model.selectWhere('"id_User"','users',{"username":user.username});//On remonte l'id de l'user créé
+        db.query(sql,function(idUser,err){
           if(err){
             catchError(res,err);
           }
           else{
+            user["id_User"] = idUser[0]["id_User"];//On ajoute l'id au JSON
             delete user.username;
             delete user.password;
             if(user.role == 'student'){
               delete user.role;
-              student.create(table,user);
+              student.create(user,res);
             }
-            else if(user.role == 'teachers'){
-              delete user.role;
-              teacher.create(table,user);
+            else if(user.role == 'teacher'){//A moins de colonne que student
+              user = {"name":user["name"],"nickname":user["nickname"],"email":user["email"],"id_User":user["id_User"]}
+              teacher.create(user,res);
             }
             else if(user.role == 'administrator'){
-              delete user.role;
-              admin.create(table,user);
+              user = {"name":user["name"],"nickname":user["nickname"],"email":user["email"],"id_User":user["id_User"]};
+              admin.create(user,res);
             }
           }
         });
-        res.status(201).send({
-          'status':201,
-          'message':'Utilisateur créé'
-        });
       }
+    });
+    res.status(201).send({
+      'status':201,
+      'message':'Utilisateur créé'
     });
   }
 };

@@ -49,17 +49,10 @@ var teacher = {
     });
   },
   create: function(req, res){
-    var newTeacher = req;
-    var sql = model.create(table,newTeacher);
-    db.query(sql, function(teacher,err){
+    var sql = model.create(table,req);
+    db.query(sql, function(res,err){
       if(err){
         catchError(res,err);
-      }
-      else{
-        res.status(201).send({
-          "status": 201,
-          "message": "Professeur créé"
-        });
       }
     });
   },
