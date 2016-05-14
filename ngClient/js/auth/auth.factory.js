@@ -23,7 +23,6 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
       });
     },
     logout: function() {
-      console.log('est');
 
       if (AuthenticationFactory.isLogged) {
         AuthenticationFactory.isLogged = false;

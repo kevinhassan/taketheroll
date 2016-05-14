@@ -13,9 +13,16 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
           AuthenticationFactory.isLogged = true;
           AuthenticationFactory.userRole = role;
           $window.sessionStorage.token = data.token.token;
-
-            $location.path("/");
-
+          //On répartie les pages d'accueil en fonction des rôles
+          if(role == 'administrator'){
+            $location.path("/admin");
+          }
+          else if(role == 'student'){
+            $location.path("/student");
+          }
+          else if(role == 'teacher'){
+            $location.path("/teacher");
+          }
         }).error(function(response) {
           if(response.status == 401){
             alert(response.message);

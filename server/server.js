@@ -7,8 +7,9 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
+
+
 var app = express();
 
 app.use(logger('dev'));
@@ -27,14 +28,12 @@ app.all('/*', function(req, res, next) {
     next();
   }
 });
-// Auth Middleware - This will check if the token is valid
-// Only the requests that start with /api/v1/* will be checked for the token.
-// Any URL's that do not follow the below pattern should be avoided unless you
-// are sure that authentication is not needed
+
 app.all('/api/*',[require('./auth/middlewares/validateRequest')]);
 
 // La liste des routes de l'application
 app.use('/', routes);
+
 // Si la page n'existe pas envoyer une erreur 404
 app.use(function(req, res, next) {
   res.status(404);
@@ -43,9 +42,7 @@ app.use(function(req, res, next) {
           });
   next();
 });
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/ngClient/index.html'));
-});
+
 // Démarrer le server
 app.set('port', process.env.PORT || 8080);
 var server = app.listen(app.get('port'), function() {
