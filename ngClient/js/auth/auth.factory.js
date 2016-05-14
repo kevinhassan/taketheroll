@@ -1,6 +1,7 @@
 myApp.factory('AuthenticationFactory', function($window) {
   var auth = {
     isLogged: false,
+    userRole: null,
     check: function() {
       if ($window.sessionStorage.token) {
         this.isLogged = true;
@@ -8,6 +9,9 @@ myApp.factory('AuthenticationFactory', function($window) {
         this.isLogged = false;
         delete this.user;
       }
+    },
+    getRole:function(){
+      return this.userRole;
     }
   }
 
@@ -26,6 +30,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
 
       if (AuthenticationFactory.isLogged) {
         AuthenticationFactory.isLogged = false;
+        AuthenticationFactory.role = null;
         delete AuthenticationFactory.user;
         delete AuthenticationFactory.user.id;
         delete AuthenticationFactory.user.role;

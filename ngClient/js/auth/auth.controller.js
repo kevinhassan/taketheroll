@@ -1,7 +1,6 @@
 myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactory', 'AuthenticationFactory',
   function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
 
-
     $scope.login = function() {
 
       var username = $scope.username,
@@ -24,12 +23,10 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
             $location.path("/teacher");
           }
         }).error(function(response) {
-          if(response.status == 401){
             alert(response.message);
-          }
         });
       } else {
-        alert('Merci de renseignez les champs.');
+        alert('Merci de renseigner les champs.');
       }
 
     };

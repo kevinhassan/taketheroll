@@ -11,15 +11,6 @@ var late = require('../models/late');
 var course = require('../models/course');
 var user = require('../models/user');
 
-
-
-router.get("/",function(req,res){
-  res.status(200);
-  res.json({"status":200,
-            "message" : "Bienvenue à l'accueil"
-          });
-});
-
 router.get("/login",function(req,res){
     res.status(200);
     res.json({"status":200,

@@ -1,7 +1,8 @@
 var myApp = angular.module('taketheroll', ['ngRoute']);
+//define address to communicate with API
+myApp.constant("api_link",'http://localhost:3000');
 
 myApp.config(function($routeProvider, $httpProvider) {
-
   $httpProvider.interceptors.push('TokenInterceptor');
 
   $routeProvider
