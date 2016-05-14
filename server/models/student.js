@@ -49,17 +49,10 @@ var student = {
     });
   },
   create: function(req, res){
-    var newStudent = req;
-    var sql = model.create(table,newStudent);
-    db.query(sql, function(student,err){
+    var sql = model.create(table,req);
+    db.query(sql, function(res,err){
       if(err){
         catchError(res,err);
-      }
-      else{
-        res.status(201).send({
-          "status": 201,
-          "message": "Etudiant créé"
-        });
       }
     });
   },
