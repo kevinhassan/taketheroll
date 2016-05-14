@@ -11,27 +11,81 @@ myApp.config(function($routeProvider, $httpProvider) {
       access: {
         requiredLogin: false
       }
-    }).when('/', {
+    }).when('/admin', {
       templateUrl: 'partials/home.html',
-      controller: 'HomeCtrl',
+      controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
-    }).when('/page1', {
-      templateUrl: 'partials/page1.html',
-      controller: 'Page1Ctrl',
+    }).when('/admin/register', {
+      templateUrl: 'partials/admin.html',
+      controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
-    }).when('/page2', {
-      templateUrl: 'partials/page2.html',
-      controller: 'Page2Ctrl',
-      access: {
-        requiredLogin: true
-      }
-    }).when('/page3', {
+    }).when('/admin/students', {
       templateUrl: 'partials/page3.html',
-      controller: 'Page3Ctrl',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/students/:idStudent', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/students/:idStudent/absences', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/students/:idStudent/absences/:idAbsence', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/students/:idStudent/lates', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/students/:idStudent/lates/:idLates', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/courses', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/courses/:idCourse/absences', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/courses/:idCourse/absences/:idAbsence', {
+      templateUrl: 'partials/page1.html',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/courses/:idCourse/lates', {
+      templateUrl: 'AdminCtrl',
+      controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/admin/courses/:idCourse/lates/:idLates', {
+      templateUrl: 'AdminCtrl',
+      controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
