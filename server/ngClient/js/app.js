@@ -19,13 +19,13 @@ myApp.config(function($routeProvider, $httpProvider) {
         requiredLogin: true
       }
     }).when('/admin/register', {
-      templateUrl: 'partials/admin.html',
+      templateUrl: 'partials/register.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students', {
-      templateUrl: 'partials/page3.html',
+      templateUrl: 'partials/listStudents.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true

@@ -6,14 +6,14 @@
       <li ng-class="{active:isActive('/page1')}"><a href="badges.html">Components</a></li>
       <li ng-class="{active:isActive('/page2')}"><a href="collapsible.html">Javascript</a></li>
       <li ng-class="{active:isActive('/page3')}"><a href="mobile.html">Mobile</a></li>
-      <li><a ng-click="logout()">Logout</a></li>
+      <li><a ng-click="logout()">Déconnecter></li>
     </ul>
     <ul class="side-nav" id="slide-out" ng-show="showMenu">
       <li ng-class="{active:isActive('/')}"><a href="sass.html">Accueil</a></li>
       <li ng-class="{active:isActive('/page1')}"><a href="badges.html">Components</a></li>
       <li ng-class="{active:isActive('/page2')}"><a href="collapsible.html">Javascript</a></li>
       <li ng-class="{active:isActive('/page3')}"><a href="mobile.html">Mobile</a></li>
-      <li><a href="javascript:" ng-click="logout()">Logout</a>
+      <li ng-click="logout()">Déconnecter</li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse left" ng-show="showMenu"><i class="material-icons">menu</i></a>
   </div>

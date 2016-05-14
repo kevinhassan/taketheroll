@@ -27,7 +27,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
       });
     },
     logout: function() {
-
+      console.log('test');
       if (AuthenticationFactory.isLogged) {
         AuthenticationFactory.isLogged = false;
         AuthenticationFactory.role = null;
@@ -38,7 +38,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.user;
         delete $window.sessionStorage.user.id;
-        delete $window.sessionStorage.user.role;
+        delete $window.sessionStorage.userRole;
 
         $location.path("/login");
       }
