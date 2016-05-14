@@ -37,7 +37,8 @@ myApp.controller("Page3Ctrl", ['$scope', 'dataFactory',
 
     // Access the factory and get the latest products list
     dataFactory.getProducts().then(function(data) {
-      $scope.products = data.data;
+      console.log(data.data.students);
+      $scope.products = data.data.students;
     });
 
   }

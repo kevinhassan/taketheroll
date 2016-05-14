@@ -1,22 +1,30 @@
-<div class="container" ng-controller="Page3Ctrl">
-  <div class="page-header">
-    <h3>List of products from the REST API
-      <code>/api/admin/students</code>
-    </h3>
-  </div>
-
-
-  <p class="lead">
-    <table class="table table-striped">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-      <tr ng-repeat="p in products">
-        <td>{{p.id}}</td>
-        <td>{{p.name}}</td>
-      </tr>
-    </table>
-  </p>
-
+<div class="page-header">
+  <h3>Liste des étudiants</h3>
 </div>
+
+<table class="highlight centered responsive-table" ng-controller="Page3Ctrl">
+  <thead>
+    <tr>
+        <th data-field="idUtilisateur">Id</th>
+        <th data-field="nom">Nom</th>
+        <th data-field="prénom">Prénom</th>
+        <th data-field="sex">Sexe</th>
+        <th data-field="email">Email</th>
+        <th data-field="adresse">Adresse</th>
+        <th data-field="dateNaissance">Date de naissance</th>
+        <th data-field="group">Groupe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="student in products">
+      <td>{{student.id_User}}</td>
+      <td>{{student.name}}</td>
+      <td>{{student.nickname}}</td>
+      <td>{{student.sex}}</td>
+      <td>{{student.email}}</td>
+      <td>{{student.address}}</td>
+      <td>{{student.birthday|date:'dd/MM/yyyy'}}</td>
+      <td>{{student.group}}</td>
+    </tr>
+  </tbody>
+</table>
