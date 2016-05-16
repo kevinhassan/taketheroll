@@ -1,8 +1,7 @@
 <div class="page-header">
   <h3>Liste des étudiants</h3>
 </div>
-
-<table class="highlight centered responsive-table" ng-controller="Page3Ctrl">
+<table class="highlight centered responsive-table" ng-controller="StudentCtrl">
   <thead>
     <tr>
         <th data-field="idUtilisateur">Id</th>
@@ -16,9 +15,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="student in products">
-      <a href="/admin/students/">
-      <td>{{student.id_User}}</td>
+    <tr ng-repeat="student in students">
+      <td><a href="#/admin/students/{{student.id_Student}}">{{student.id_Student}}</a></td>
       <td>{{student.name}}</td>
       <td>{{student.nickname}}</td>
       <td>{{student.sex}}</td>
@@ -26,7 +24,6 @@
       <td>{{student.address}}</td>
       <td>{{student.birthday|date:'dd/MM/yyyy'}}</td>
       <td>{{student.group}}</td>
-    </a>
     </tr>
   </tbody>
 </table>

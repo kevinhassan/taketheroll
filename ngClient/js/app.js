@@ -26,13 +26,13 @@ myApp.config(function($routeProvider, $httpProvider) {
       }
     }).when('/admin/students', {
       templateUrl: 'partials/listStudents.html',
-      controller: 'AdminCtrl',
+      controller: 'StudentCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students/:idStudent', {
-      templateUrl: 'partials/page1.html',
-      controller: 'AdminCtrl',
+      templateUrl: 'partials/profile.html',
+      controller: 'ProfileCtrl',
       access: {
         requiredLogin: true
       }

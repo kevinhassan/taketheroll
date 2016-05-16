@@ -1,4 +1,4 @@
-myApp.factory('AdminFactory', function($http,api_link) {
+/*myApp.factory('AdminFactory', function($http,api_link) {
 
   var urlBase = api_link+"/admin/";
   var admin = {};
@@ -20,4 +20,11 @@ myApp.factory('AdminFactory', function($http,api_link) {
   }
 
   return admin;
-});
+});*/
+myApp.factory('AdminFactory', ['$http', function($http) {
+
+    var urlBase = 'http://localhost:3000/api/admin';
+    var dataFactory = {};
+
+    return dataFactory;
+}]);
