@@ -25,6 +25,7 @@ The system could accounting lates and absents students.
 ```
 $ cd server/
 ```
+```
 $ node server.js
 ``` 
 
@@ -35,6 +36,7 @@ It will be available on http://localhost:3000/
 ```
 $ npm install gulp gulp-connect
 ```
+```
 $ gulp
 ```
 
@@ -44,6 +46,7 @@ It will be launch to http://localhost:2772/
 
 ```
 $ cd .
+```
 ```
 $ "DB_URL=postgres://username:password@databasePath/dbname">> .env
 ```
