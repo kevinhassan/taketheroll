@@ -1,7 +1,7 @@
 <div class="page-header">
-  <h3>Liste des étudiants</h3>
+  <h3>Liste des cours</h3>
 </div>
-<table class="highlight centered responsive-table" ng-controller="StudentCtrl">
+<table class="highlight centered responsive-table" ng-controller="CourseCtrl">
   <thead>
     <tr>
         <th data-field="idUtilisateur">Id</th>
@@ -15,15 +15,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="student in students">
-      <td><a ng-click="getStudent(student)">{{student.id_Student}}</a></td>
-      <td>{{student.name}}</td>
-      <td>{{student.nickname}}</td>
-      <td>{{student.sex}}</td>
-      <td>{{student.email}}</td>
-      <td>{{student.address}}</td>
-      <td>{{student.birthday|date:'dd/MM/yyyy'}}</td>
-      <td>{{student.group}}</td>
+    <tr ng-repeat="course in courses">
+      <td><a ng-click="">{{student.id_Student}}</a></td>
+      <td>{{course.name}}</td>
+      <td>{{course.nickname}}</td>
+      <td>{{course.sex}}</td>
+      <td>{{course.email}}</td>
+      <td>{{course.address}}</td>
+      <td>{{course.birthday|date:'dd/MM/yyyy'}}</td>
+      <td>{{course.group}}</td>
     </tr>
   </tbody>
 </table>

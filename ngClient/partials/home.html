@@ -6,4 +6,17 @@
     <ul class="collection">
       <li class="collection-item" ng-repeat="possibily in possibilities">{{possibily}}</li>
     </ul>
+    <ul ng-show="estTeacher()">
+      <li><a href="#/teacher/courses">Liste des cours</a></li>
+    </ul>
+    <ul ng-show="estAdmin()">
+      <li><a href="#/admin/students">Liste des étudiants</a></li>
+      <li><a href="#/admin/courses">Liste des cours</a></li>
+    </ul>
+    <ul ng-show="estStudent()">
+      <li><a href="#/students/absences">Liste des absences</a></li>
+      <li><a href="#/students/absences">Liste des retards</a></li>
+    </ul>
+
+
 </section>

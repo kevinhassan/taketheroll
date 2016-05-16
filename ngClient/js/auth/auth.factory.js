@@ -27,24 +27,23 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
       });
     },
     logout: function() {
-      console.log('test');
+
       if (AuthenticationFactory.isLogged) {
+
         AuthenticationFactory.isLogged = false;
-        AuthenticationFactory.role = null;
         delete AuthenticationFactory.user;
-        delete AuthenticationFactory.user.id;
-        delete AuthenticationFactory.user.role;
+        delete AuthenticationFactory.userid;
+        delete AuthenticationFactory.userRole;
 
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.user;
-        delete $window.sessionStorage.user.id;
+        delete $window.sessionStorage.userid;
         delete $window.sessionStorage.userRole;
 
         $location.path("/login");
       }
-
     }
-  }
+  } 
 });
 
 myApp.factory('TokenInterceptor', function($q, $window) {

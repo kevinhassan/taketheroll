@@ -1,23 +1,28 @@
-<div class="card">
+<div class="card" ng-controller="StudentCtrl">
+  {{getStudent()}}
   <div class="card-header">
-    <img src="https://s-media-cache-ak0.pinimg.com/originals/3b/f0/77/3bf0775b0d234545d14a5941be966ab2.jpg"/>
   </div>
   <div class="card-content">
-    <h3>Frank the Pug</h3>
-    <h4>The sexiest "Men (dog) in Black" </h4>
+    <h3>{{student.nickname}} {{student.name}}</h3>
     <p>And now you're back from outer space, / I just walked in to find you here with that sad look upon your face, / I should've changed that stupid lock, I should have made you leave your key, / If I'd have known for just one second you'd be back to bother me. / Go on, now go! Walk out the door...</p>
-    {{student.name}}
+    <ul>
+      <li>{{student.id_Student}}></li>
+      <li>{{student.name}}</li>
+      <li>{{student.nickname}}</li>
+      <li>{{student.sex}}</li>
+      <li>{{student.email}}</li>
+      <li>{{student.address}}</li>
+      <li>{{student.birthday|date:'dd/MM/yyyy'}}</li>
+      <li>{{student.group}}</li>
+    </ul>
   </div>
   <div class="card-footer">
     <ul>
       <li>
-        <a href="#"><i class="fa fa-codepen"></i></a>
+        <a class="btn-floating btn-large red"><i class="large material-icons">mode_edit</i></a>
       </li>
       <li>
-        <a href="#"><i class="fa fa-stack-overflow"></i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fa fa-github"></i></a>
+        <a class="btn-floating btn-large red" onclick='Materialize.toast("Utilisateur en cours de suppression ...", 2000)'><i class="material-icons">delete</i></a>
       </li>
     </ul>
   </div>

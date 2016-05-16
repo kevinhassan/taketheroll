@@ -1,19 +1,19 @@
-<nav class="navbar-fixed-top red" role="navigation">
+<nav class="navbar-fixed-top red" actor="navigation">
   <div class="nav-wrapper">
-    <a href="#!" class="brand-logo">PolyAbsence</a>
+    <a ng-href="#/{{actor}}" class="brand-logo">PolyAbsence</a>
     <ul class="right hide-on-med-and-down" ng-show="showMenu">
-      <li ng-class="{active:isActive('/')}"><a href="sass.html">Accueil</a></li>
+      <li ng-class="{active:isActive('#/{{actor}}')}"><a ng-href="#/{{actor}}">Accueil</a></li>
       <li ng-class="{active:isActive('/page1')}"><a href="badges.html">Components</a></li>
       <li ng-class="{active:isActive('/page2')}"><a href="collapsible.html">Javascript</a></li>
       <li ng-class="{active:isActive('/page3')}"><a href="mobile.html">Mobile</a></li>
-      <li><a ng-click="logout()">Déconnecter></li>
+      <li><a ng-click="logout()">Déconnecter</a></li>
     </ul>
     <ul class="side-nav" id="slide-out" ng-show="showMenu">
-      <li ng-class="{active:isActive('/')}"><a href="sass.html">Accueil</a></li>
+      <li ng-class="{active:isActive('#/{{actor}}')}"><a ng-href="#/{{actor}}">Accueil</a></li>
       <li ng-class="{active:isActive('/page1')}"><a href="badges.html">Components</a></li>
       <li ng-class="{active:isActive('/page2')}"><a href="collapsible.html">Javascript</a></li>
       <li ng-class="{active:isActive('/page3')}"><a href="mobile.html">Mobile</a></li>
-      <li ng-click="logout()">Déconnecter</li>
+      <li><a ng-click="logout()">Déconnecter</a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse left" ng-show="showMenu"><i class="material-icons">menu</i></a>
   </div>

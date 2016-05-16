@@ -21,10 +21,3 @@
 
   return admin;
 });*/
-myApp.factory('AdminFactory', ['$http', function($http) {
-
-    var urlBase = 'http://localhost:3000/api/admin';
-    var dataFactory = {};
-
-    return dataFactory;
-}]);

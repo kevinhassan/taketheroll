@@ -19,7 +19,7 @@ myApp.config(function($routeProvider, $httpProvider) {
         requiredLogin: true
       }
     }).when('/admin/register', {
-      templateUrl: 'partials/register.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
@@ -32,61 +32,115 @@ myApp.config(function($routeProvider, $httpProvider) {
       }
     }).when('/admin/students/:idStudent', {
       templateUrl: 'partials/profile.html',
-      controller: 'ProfileCtrl',
+      controller: 'StudentCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students/:idStudent/absences', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students/:idStudent/absences/:idAbsence', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students/:idStudent/lates', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/students/:idStudent/lates/:idLates', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/courses', {
-      templateUrl: 'partials/page1.html',
-      controller: 'AdminCtrl',
+      templateUrl: 'partials/listCourses.html',
+      controller: 'CourseCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/courses/:idCourse/absences', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/courses/:idCourse/absences/:idAbsence', {
-      templateUrl: 'partials/page1.html',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/courses/:idCourse/lates', {
-      templateUrl: 'AdminCtrl',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
       access: {
         requiredLogin: true
       }
     }).when('/admin/courses/:idCourse/lates/:idLates', {
-      templateUrl: 'AdminCtrl',
+      templateUrl: 'partials/home.html',
       controller: 'AdminCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student/absences', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student/absences/:idAbsence', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student/lates', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student/lates/idLates', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/student/lates/idLates', {
+      templateUrl: 'partials/home.html',
+      controller: 'StudentCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/teacher', {
+      templateUrl: 'partials/home.html',
+      controller: 'TeacherCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/teacher/courses', {
+      templateUrl: 'partials/listCourses.html',
+      controller: 'CourseCtrl',
+      access: {
+        requiredLogin: true
+      }
+    }).when('/teacher/courses/idCourse', {
+      templateUrl: 'partials/home.html',
+      controller: 'TeacherCtrl',
       access: {
         requiredLogin: true
       }
